@@ -5,11 +5,12 @@
 
 <h1>Hello, world!</h1>
 
-@foreach (var item in newsCards)
-{
-    <NewsCard NewsCardInfo="item"></NewsCard>
-}
-
+<div class="container">
+    @foreach (var item in newsCards)
+    {
+        <NewsCard NewsCardInfo="item"></NewsCard>
+    }
+</div>
 
 @code {
     private NewsCard[] newsCards;
