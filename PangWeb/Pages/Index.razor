@@ -7,19 +7,18 @@
 
 @foreach (var item in newsCards)
 {
-    @item.Title
-    <br />
+    <NewsCard NewsCardInfo="item"></NewsCard>
 }
 
 
 @code {
-    private NewsCards[] newsCards;
+    private NewsCard[] newsCards;
     protected override async Task OnInitializedAsync()
     {
-        newsCards = await Http.GetFromJsonAsync<NewsCards[]>("sample-data/news.json");
+        newsCards = await Http.GetFromJsonAsync<NewsCard[]>("sample-data/news.json");
     }
 
-    public class NewsCards
+    public class NewsCard
     {
         public string Title { get; set; }
         public DateTime Date { get; set; }
