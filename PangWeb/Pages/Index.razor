@@ -1,7 +1,28 @@
 ﻿@page "/"
+@inject HttpClient Http
 
-<PageTitle>Index</PageTitle>
+<PageTitle>PangWeb</PageTitle>
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+@foreach (var item in newsCards)
+{
+    @item.Title
+    <br />
+}
+
+
+@code {
+    private NewsCards[] newsCards;
+    protected override async Task OnInitializedAsync()
+    {
+        newsCards = await Http.GetFromJsonAsync<NewsCards[]>("sample-data/news.json");
+    }
+
+    public class NewsCards
+    {
+        public string Title { get; set; }
+        public DateTime Date { get; set; }
+        public string Summary { get; set; }
+    }
+}
