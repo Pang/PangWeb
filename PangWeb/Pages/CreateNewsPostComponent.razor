@@ -1,0 +1,10 @@
+﻿@page "/CreatePost";
+
+<section>
+    <h3>Write something new!</h3>
+
+    <EditForm Model="@NewsCardForm">
+        <InputText id="title" placeholder="Title" @bind-Value="@NewsCardForm.Title"></InputText><br/>
+        <InputTextArea id="summary" placeholder="Summary" @bind-Value="@NewsCardForm.Summary"></InputTextArea>
+    </EditForm>
+</section>
