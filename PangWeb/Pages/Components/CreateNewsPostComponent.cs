@@ -1,12 +1,16 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.AspNetCore.Components;
+using PangWeb.Services;
 using PangWeb.Shared;
 
-namespace PangWeb.Pages
+namespace PangWeb.Pages.Components
 {
     public partial class CreateNewsPostComponent
     {
+        [Inject]
+        private BlogService _blogService { get; set; }
+
         [Parameter]
         public NewsCard NewsCardForm { get; set; } = new NewsCard();
 
@@ -17,8 +21,7 @@ namespace PangWeb.Pages
         public void SavePostToList()
         {
             NewsCardForm.Date = DateTimeOffset.Now;
-            var foo = JsonSerializer.Serialize(NewsCardForm);
-            Console.WriteLine(foo);
+            _blogService.NewsCards.Add(NewsCardForm);
         }
     }
 }
