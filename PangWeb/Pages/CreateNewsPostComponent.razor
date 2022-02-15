@@ -1,10 +1,14 @@
 ﻿@page "/CreatePost";
 
-<section>
-    <h3>Write something new!</h3>
-
-    <EditForm Model="@NewsCardForm">
-        <InputText id="title" placeholder="Title" @bind-Value="@NewsCardForm.Title"></InputText><br/>
-        <InputTextArea id="summary" placeholder="Summary" @bind-Value="@NewsCardForm.Summary"></InputTextArea>
+<section class="container">
+    <h3 class="text-start">Write something new!</h3>
+    <EditForm Model="@NewsCardForm" OnValidSubmit="@SavePostToList">
+        <div class="form-group row w-25">
+            <InputText id="title" placeholder="Title" @bind-Value="@NewsCardForm.Title"></InputText><br/>
+        </div>
+        <div class="form-group row w-50">
+            <InputTextArea id="summary" placeholder="Summary" @bind-Value="@NewsCardForm.Summary"></InputTextArea>
+        </div>
+        <button class="btn btn-success d-grid mt-2" type="submit">Submit</button>
     </EditForm>
 </section>
