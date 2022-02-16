@@ -1,0 +1,13 @@
+﻿<div class="card text-dark m-3">
+    <div class="card-body">
+        <h4>@blogInfo.Title</h4>
+        <p>@blogInfo.Summary</p>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public Blog blogInfo { get; set; }
+
+}

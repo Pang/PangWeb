@@ -6,22 +6,17 @@ using PangWeb.Shared;
 
 namespace PangWeb.Pages.Components
 {
-    public partial class CreateNewsPostComponent
+    public partial class CreateBlogComponent
     {
         [Inject]
         private BlogService _blogService { get; set; }
 
         [Parameter]
-        public NewsCard NewsCardForm { get; set; } = new NewsCard();
-
-        protected override void OnInitialized()
-        {
-        }
+        public Blog BlogForm { get; set; } = new Blog();
 
         public void SavePostToList()
         {
-            NewsCardForm.Date = DateTimeOffset.Now;
-            _blogService.NewsCards.Add(NewsCardForm);
+            _blogService.AddNewBlog(BlogForm);
         }
     }
 }
