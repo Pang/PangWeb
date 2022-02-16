@@ -1,0 +1,21 @@
+﻿@page "/Admin";
+
+<section class="container">
+    <h3>AdminComponent</h3>
+
+    <table class="table text-white">
+        <tr>
+            <th>Title</th>
+            <th>Summary</th>
+            <th>Date</th>
+        </tr>
+        @foreach (var item in _blogService.NewsCards)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Summary</td>
+                <td>@item.Date</td>
+            </tr>
+        }
+    </table>
+</section>

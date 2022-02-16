@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PangWeb", "PangWeb\PangWeb.csproj", "{84681E3B-902C-42B4-B032-8E4E225050A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PangWeb.Shared", "PangWeb.Shared\PangWeb.Shared.csproj", "{1DF1C5AA-438B-4F3E-BE4C-B1460153F9DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PangWeb.Shared", "PangWeb.Shared\PangWeb.Shared.csproj", "{1DF1C5AA-438B-4F3E-BE4C-B1460153F9DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
