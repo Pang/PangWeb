@@ -11,6 +11,13 @@ namespace PangWeb.Pages.Components
         [Inject]
         private BlogService _blogService { get; set; }
 
+        private int SelectedId { get; set; } = 0;
+
         protected override void OnInitialized() { }
+
+        private void SetSelectedId(int selectedRowId = 0)
+        {
+            SelectedId = selectedRowId;
+        }
     }
 }

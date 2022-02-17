@@ -2,24 +2,32 @@
 
 <section class="container">
     <h3>AdminComponent</h3>
-
     <table class="table table-dark table-striped text-white">
         <thead>
-            <tr>
-                <th>Title</th>
-                <th>Summary</th>
-                <th>Date</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Summary</th>
+            <th>Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
         </thead>
         <tbody>
         @foreach (var item in _blogService.GetAllBlogs())
         {
             <tr>
+                <td>@item.Id</td>
                 <td>@item.Title</td>
                 <td class="w-50">@item.Summary</td>
                 <td>@item.Date.ToString("dd/MM/yyyy - HH:mm:ss")</td>
+                <td @onclick="() => SetSelectedId(item.Id)" style="color: yellow">&#9998;</td>
+                <td style="color: red">&#10006;</td>
             </tr>
         }
         </tbody>
     </table>
 </section>
+
+<!-- If selectedId != null => show dialog -->
+<EditBlogDialogComponent SelectedId="@SelectedId" OnModalClose="SetSelectedId"></EditBlogDialogComponent>

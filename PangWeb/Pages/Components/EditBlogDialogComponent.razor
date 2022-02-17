@@ -1,0 +1,44 @@
+﻿@using PangWeb.Services
+@if (SelectedId > 0)
+{
+    <div tabindex="1">
+        <div class="modal-dialog">
+            <div class="modal-content text-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title">@EditBlogForm.Title</h5>
+                    <button type="button" class="btn-close" @onclick="() => OnModalClose.InvokeAsync()" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>@EditBlogForm.Summary</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="() => OnModalClose.InvokeAsync()" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    [Inject]
+    private BlogService _blogService { get; set; }
+    private Blog EditBlogForm;
+
+    private int _selectedId;
+    [Parameter] public int SelectedId
+    {
+        get { return _selectedId; }
+        set
+        {
+            _selectedId = value;
+            if (value > 0) EditBlogForm = _blogService.GetBlogById(value);
+        }
+    }
+
+    [Parameter]
+    public EventCallback<int> OnModalClose { get; set; }
+
+
+}
