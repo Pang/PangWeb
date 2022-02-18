@@ -36,6 +36,26 @@ namespace PangWeb.Services
             }
         }
 
+        /* Disable blog from list */
+        public void DeleteBlog(Blog blogForm)
+        {
+            if (blogForm != null)
+            {
+                var blogIndex = blogs.FindIndex(x => x.Id == blogForm.Id);
+                blogs[blogIndex].active = false;
+            }
+        }
+
+        /* Reactivate blog from list */
+        public void ReactivateBlog(Blog blogForm)
+        {
+            if (blogForm != null)
+            {
+                var blogIndex = blogs.FindIndex(x => x.Id == blogForm.Id);
+                blogs[blogIndex].active = true;
+            }
+        }
+
         private List<Blog> SeededData()
         {
             return new List<Blog>()
@@ -44,20 +64,23 @@ namespace PangWeb.Services
                 {
                     Id = 1,
                     Title = "Just keep scrollin",
+                    Summary = "It really goes on...",
+                    active = true,
                     Date = DateTimeOffset.Parse("11/05/2015"),
-                    Summary = "It really goes on..."
                 },
                 new Blog {
                     Id = 2,
                     Title = "In other news",
+                    Summary = "This is a cool summary",
+                    active = true,
                     Date = DateTimeOffset.Parse("14/03/2017"),
-                    Summary = "This is a cool summary"
                 },
                 new Blog {
                     Id = 3,
                     Title = "New stuff",
+                    Summary = "We gon be workin on a new game, LOTR-inspired with castles and fantasy stuff. Based in the same universe as ShieldMaidens",
+                    active = true,
                     Date = DateTimeOffset.Parse("17/01/2021"),
-                    Summary = "We gon be workin on a new game, LOTR-inspired with castles and fantasy stuff. Based in the same universe as ShieldMaidens"
                 },
             };
         }

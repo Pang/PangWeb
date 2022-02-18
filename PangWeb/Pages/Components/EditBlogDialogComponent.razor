@@ -6,39 +6,77 @@
             <div class="modal-content text-dark">
                 <div class="modal-header">
                     <h5 class="modal-title">@EditBlogForm.Title</h5>
-                    <button type="button" class="btn-close" @onclick="() => OnModalClose.InvokeAsync()" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button 
+                        type="button" 
+                        class="btn-close" 
+                        @onclick="() => OnModalClose.InvokeAsync()" 
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p>@EditBlogForm.Summary</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @onclick="() => OnModalClose.InvokeAsync()" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success">Save changes</button>
+                    @if (EditBlogForm.active)
+                    {
+                        <button 
+                            type="button" 
+                            class="btn btn-danger me-auto" 
+                            @onclick="() => showDeleteDialog = true" 
+                            data-bs-dismiss="modal">
+                            Delete
+                        </button>
+                    }
+                    else
+                    {
+                        <button 
+                            type="button" 
+                            class="btn btn-primary me-auto" 
+                            @onclick="() => { _blogService.ReactivateBlog(EditBlogForm); OnModalClose.InvokeAsync(); }" 
+                            data-bs-dismiss="modal">
+                            Reactivate
+                        </button>
+                    }
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary" 
+                        @onclick="() => OnModalClose.InvokeAsync()"
+                        data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-success">
+                        Save changes
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-}
 
-@code {
-
-    [Inject]
-    private BlogService _blogService { get; set; }
-    private Blog EditBlogForm;
-
-    private int _selectedId;
-    [Parameter] public int SelectedId
-    {
-        get { return _selectedId; }
-        set
-        {
-            _selectedId = value;
-            if (value > 0) EditBlogForm = _blogService.GetBlogById(value);
-        }
-    }
-
-    [Parameter]
-    public EventCallback<int> OnModalClose { get; set; }
-
-
+    <div style="display: @(showDeleteDialog ? "fixed" : "none")" tabindex="2">
+        <div class="modal-dialog">
+            <div class="modal-content text-dark">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete @EditBlogForm.Title</p>
+                </div>
+                <div class="modal-footer">
+                    <button 
+                        type="button" 
+                        class="btn btn-secondary" 
+                        data-bs-dismiss="modal" 
+                        @onclick="() => showDeleteDialog = false">
+                        No, keep
+                    </button>
+                    <button 
+                        type="button" 
+                        class="btn btn-danger"
+                        @onclick="() => { _blogService.DeleteBlog(EditBlogForm); OnModalClose.InvokeAsync(); showDeleteDialog = false; }">
+                        Yes, delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
