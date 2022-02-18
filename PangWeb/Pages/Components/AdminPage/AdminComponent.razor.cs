@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using PangWeb.Services;
 using PangWeb.Shared;
 
-namespace PangWeb.Pages.Components
+namespace PangWeb.Pages.Components.AdminPage
 {
     public partial class AdminComponent
     {

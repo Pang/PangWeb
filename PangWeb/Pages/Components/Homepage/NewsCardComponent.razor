@@ -1,0 +1,14 @@
+﻿<div style="background: #262626;" class="card text-light m-3">
+    <div class="card-body d-flex">
+        <div style="background: url(@blogInfo.ImgUrl); background-size: cover; width: 120px;"></div>
+        <div class="p-3 w-100">
+            <h4>@blogInfo.Title</h4>
+            <p>@blogInfo.Summary</p>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Blog blogInfo { get; set; }
+}

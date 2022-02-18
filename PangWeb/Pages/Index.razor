@@ -1,10 +1,8 @@
 ﻿@page "/"
-@using PangWeb.Pages.Components
+@using PangWeb.Pages.Components.Homepage
 @using PangWeb.Pages.Shared
 
 <PageTitle>PangWeb</PageTitle>
-
-<h1>Hello, world!</h1>
 
 <div class="container">
     @foreach (var item in _blogService.GetAllBlogs())

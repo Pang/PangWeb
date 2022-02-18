@@ -22,6 +22,13 @@ namespace PangWeb.Services
         /* Get List of all blogs */
         public List<Blog> GetAllBlogs()
         {
+            return blogs.OrderByDescending(x => x.Date).Where(x => x.active).ToList();
+        }
+
+        /* Get List of all blogs */
+        public List<Blog> GetAllBlogsAdmin()
+        {
+            // todo: check admin
             return blogs.OrderByDescending(x => x.Date).ToList();
         }
 
@@ -39,6 +46,7 @@ namespace PangWeb.Services
         /* Disable blog from list */
         public void DeleteBlog(Blog blogForm)
         {
+            // todo: check admin
             if (blogForm != null)
             {
                 var blogIndex = blogs.FindIndex(x => x.Id == blogForm.Id);
@@ -49,6 +57,7 @@ namespace PangWeb.Services
         /* Reactivate blog from list */
         public void ReactivateBlog(Blog blogForm)
         {
+            // todo: check admin
             if (blogForm != null)
             {
                 var blogIndex = blogs.FindIndex(x => x.Id == blogForm.Id);
@@ -65,6 +74,7 @@ namespace PangWeb.Services
                     Id = 1,
                     Title = "Just keep scrollin",
                     Summary = "It really goes on...",
+                    ImgUrl = "https://picsum.photos/400",
                     active = true,
                     Date = DateTimeOffset.Parse("11/05/2015"),
                 },
@@ -72,6 +82,7 @@ namespace PangWeb.Services
                     Id = 2,
                     Title = "In other news",
                     Summary = "This is a cool summary",
+                    ImgUrl = "https://picsum.photos/400",
                     active = true,
                     Date = DateTimeOffset.Parse("14/03/2017"),
                 },
@@ -79,6 +90,7 @@ namespace PangWeb.Services
                     Id = 3,
                     Title = "New stuff",
                     Summary = "We gon be workin on a new game, LOTR-inspired with castles and fantasy stuff. Based in the same universe as ShieldMaidens",
+                    ImgUrl = "https://picsum.photos/400",
                     active = true,
                     Date = DateTimeOffset.Parse("17/01/2021"),
                 },
