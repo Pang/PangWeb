@@ -22,7 +22,11 @@ namespace PangWeb.Pages.Components.AdminPage.BlogComponents
 
         public void SavePostToList()
         {
-            _blogService.AddNewBlog(BlogForm);
+            if (_blogService.AddNewBlog(BlogForm))
+            {
+                BlogForm = new Blog();
+                OnCreatePostDialogClose.InvokeAsync();
+            }
         }
     }
 }

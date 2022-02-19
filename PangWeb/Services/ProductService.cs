@@ -57,14 +57,16 @@ namespace PangWeb.Services
         }
 
         /* Add a new products to the list */
-        public void AddNewProduct(Product productForm)
+        public bool AddNewProduct(Product productForm)
         {
             if (productForm.Name != null && productForm.Description != null)
             {
                 productForm.DateAdded = DateTimeOffset.Now;
                 productForm.Id = ++idTracker;
                 products.Add(productForm);
+                return true;
             }
+            return false;
         }
 
         /* Disable products from list */

@@ -33,14 +33,18 @@ namespace PangWeb.Services
         }
 
         /* Add a new blog to the list */
-        public void AddNewBlog(Blog blogForm)
+        public bool AddNewBlog(Blog blogForm)
         {
             if (blogForm.Title != null && blogForm.Summary != null)
             {
+                blogForm.active = true;
                 blogForm.Date = DateTimeOffset.Now;
                 blogForm.Id = ++idTracker;
+                blogForm.ImgUrl = "https://picsum.photos/400";
                 blogs.Add(blogForm);
+                return true;
             }
+            return false;
         }
 
         /* Disable blog from list */

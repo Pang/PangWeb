@@ -5,7 +5,7 @@
         <div class="modal-dialog">
             <div class="modal-content text-dark">
                 <div class="modal-header">
-                    <h5 class="modal-title">@EditBlogForm.Title</h5>
+                    <h5 class="modal-title">@EditProductForm.Name</h5>
                     <button 
                         type="button" 
                         class="btn-close" 
@@ -15,10 +15,10 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>@EditBlogForm.Summary</p>
+                    <p>@EditProductForm.Description</p>
                 </div>
                 <div class="modal-footer">
-                    @if (EditBlogForm.active)
+                    @if (EditProductForm.active)
                     {
                         <button 
                             type="button" 
@@ -33,7 +33,7 @@
                         <button 
                             type="button" 
                             class="btn btn-primary me-auto" 
-                            @onclick="() => { _blogService.ReactivateBlog(EditBlogForm); OnModalClose.InvokeAsync(); }" 
+                            @onclick="() => { _ProductService.ReactivateProduct(EditProductForm); OnModalClose.InvokeAsync(); }" 
                             data-bs-dismiss="modal">
                             Reactivate
                         </button>
@@ -59,7 +59,7 @@
         <div class="modal-dialog">
             <div class="modal-content text-dark">
                 <div class="modal-body">
-                    <p>Are you sure you want to delete @EditBlogForm.Title</p>
+                    <p>Are you sure you want to delete @EditProductForm.Name</p>
                 </div>
                 <div class="modal-footer">
                     <button 
@@ -72,7 +72,7 @@
                     <button 
                         type="button" 
                         class="btn btn-danger"
-                        @onclick="() => { _blogService.DeleteBlog(EditBlogForm); OnModalClose.InvokeAsync(); showDeleteDialog = false; }">
+                        @onclick="() => { _ProductService.DeleteProduct(EditProductForm); OnModalClose.InvokeAsync(); showDeleteDialog = false; }">
                         Yes, delete
                     </button>
                 </div>

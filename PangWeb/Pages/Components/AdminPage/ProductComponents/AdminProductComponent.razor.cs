@@ -8,10 +8,15 @@ namespace PangWeb.Pages.Components.AdminPage.ProductComponents
         [Inject]
         private ProductService _productService { get; set; }
 
+        // Create Product dialog
+        private bool createProductDialogOpen { get; set; }
+        private void CloseCreateProductDialog()
+        {
+            createProductDialogOpen = false;
+        }
+
+        // Edit Product Dialog
         private int SelectedId { get; set; } = 0;
-
-        protected override void OnInitialized() { }
-
         private void SetSelectedId(int selectedRowId = 0)
         {
             SelectedId = selectedRowId;

@@ -1,6 +1,6 @@
 ﻿<section class="container">
     <h3>Products</h3>
-    <button class="btn btn-success mb-3">+</button>
+    <button class="btn btn-success mb-3"  @onclick="() => createProductDialogOpen = true">+</button>
     <table class="table table-dark table-striped text-white">
         <thead>
         <tr>
@@ -27,3 +27,8 @@
         </tbody>
     </table>
 </section>
+
+<!-- If selectedId != null => show dialog -->
+<EditProductDialogComponent SelectedId="@SelectedId" OnModalClose="SetSelectedId"></EditProductDialogComponent>
+
+<CreateProductComponent dialogOpen="createProductDialogOpen" OnCreateProductDialogClose="CloseCreateProductDialog"></CreateProductComponent>
