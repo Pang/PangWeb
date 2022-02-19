@@ -37,11 +37,22 @@ namespace PangWeb.Services
         {
             if (blogForm.Title != null && blogForm.Summary != null)
             {
-                blogForm.active = true;
                 blogForm.Date = DateTimeOffset.Now;
                 blogForm.Id = ++idTracker;
                 blogForm.ImgUrl = "https://picsum.photos/400";
                 blogs.Add(blogForm);
+                return true;
+            }
+            return false;
+        }
+
+        /* Save an editted blog from the list */
+        public bool SaveEdittedBlog(Blog blogForm)
+        {
+            if (blogForm.Title != null && blogForm.Summary != null)
+            {
+                var blogIndex = blogs.FindIndex(x => x.Id == blogForm.Id);
+                blogs[blogIndex] = blogForm;
                 return true;
             }
             return false;

@@ -69,6 +69,19 @@ namespace PangWeb.Services
             return false;
         }
 
+        /* Save editted product from list */
+        public bool SaveEdittedProduct(Product productForm)
+        {
+            // todo: check admin
+            if (productForm != null)
+            {
+                var productIndex = products.FindIndex(x => x.Id == productForm.Id);
+                products[productIndex] = productForm;
+                return true;
+            }
+            return false;
+        }
+
         /* Disable products from list */
         public void DeleteProduct(Product productForm)
         {

@@ -25,5 +25,11 @@ namespace PangWeb.Pages.Components.AdminPage.BlogComponents
                 if (value > 0) EditBlogForm = _blogService.GetBlogById(value);
             }
         }
+
+        private void SaveEdittedBlog()
+        {
+            if (_blogService.SaveEdittedBlog(EditBlogForm))
+                OnModalClose.InvokeAsync();
+        }
     }
 }

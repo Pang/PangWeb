@@ -9,12 +9,11 @@ namespace PangWeb.Pages.Components.AdminPage.ProductComponents
         [Parameter]
         public EventCallback<int> OnModalClose { get; set; }
         [Inject]
-        private ProductService _ProductService { get; set; }
+        private ProductService _productService { get; set; }
         private Product EditProductForm;
         private bool showDeleteDialog;
-
-
         private int _selectedId;
+
         [Parameter]
         public int SelectedId
         {
@@ -22,8 +21,14 @@ namespace PangWeb.Pages.Components.AdminPage.ProductComponents
             set
             {
                 _selectedId = value;
-                if (value > 0) EditProductForm = _ProductService.GetProductById(value);
+                if (value > 0) EditProductForm = _productService.GetProductById(value);
             }
+        }
+
+        private void SaveEdittedProduct()
+        {
+            if (_productService.SaveEdittedProduct(EditProductForm))
+                OnModalClose.InvokeAsync();
         }
     }
 }
