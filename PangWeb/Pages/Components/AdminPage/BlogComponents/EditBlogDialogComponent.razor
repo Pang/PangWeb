@@ -1,7 +1,7 @@
 ﻿@using PangWeb.Services
 @if (SelectedId > 0)
 {
-    <div tabindex="1">
+    <div tabindex="1" style="position: fixed; left: 0; right: 0;">
         <div class="modal-dialog">
             <div class="modal-content text-dark">
                 <div class="modal-header">
@@ -55,7 +55,7 @@
         </div>
     </div>
 
-    <div style="display: @(showDeleteDialog ? "fixed" : "none")" tabindex="2">
+    <div tabindex="2" style="display: @(showDeleteDialog ? "block" : "none"); position: fixed; left: 0; right: 0;">
         <div class="modal-dialog">
             <div class="modal-content text-dark">
                 <div class="modal-body">

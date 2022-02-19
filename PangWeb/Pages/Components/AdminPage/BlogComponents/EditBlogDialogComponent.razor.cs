@@ -2,7 +2,7 @@
 using PangWeb.Services;
 using PangWeb.Shared;
 
-namespace PangWeb.Pages.Components.AdminPage
+namespace PangWeb.Pages.Components.AdminPage.BlogComponents
 {
     public partial class EditBlogDialogComponent
     {

@@ -1,15 +1,12 @@
-﻿using System.Net.Http.Json;
-using System.Text.Json;
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using PangWeb.Services;
-using PangWeb.Shared;
 
-namespace PangWeb.Pages.Components.AdminPage
+namespace PangWeb.Pages.Components.AdminPage.ProductComponents
 {
-    public partial class AdminComponent
+    public partial class AdminProductComponent
     {
         [Inject]
-        private BlogService _blogService { get; set; }
+        private ProductService _productService { get; set; }
 
         private int SelectedId { get; set; } = 0;
 

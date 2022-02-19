@@ -39,7 +39,7 @@ namespace PangWeb.Services
         public List<Product> GetAllProductsByCategory(int categoryId)
         {
             return products.OrderByDescending(x => x.DateAdded)
-                .Where(x => x.active && x.ProductCategoryId == categoryId)
+                .Where(x => x.active && (x.ProductCategoryId == categoryId || categoryId == productCategories.First(x => x.Category == "All").Id))
                 .Join(
                     productCategories,
                     p => p.ProductCategoryId,
@@ -91,6 +91,7 @@ namespace PangWeb.Services
 
         private List<Product> SeededData()
         {
+            Random rand = new Random();
             return new List<Product>()
             {
                 new Product
@@ -99,7 +100,7 @@ namespace PangWeb.Services
                     ProductCategoryId = 1,
                     Name = "Canvas Art Piece 1",
                     Description = "Such beautiful scenery",
-                    ImgUrl = "https://picsum.photos/400",
+                    ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
                     active = true,
                     DateAdded = DateTimeOffset.Parse("11/05/2015"),
                 },
@@ -108,7 +109,7 @@ namespace PangWeb.Services
                     ProductCategoryId = 3,
                     Name = "Customized Mug",
                     Description = "Fill me up!",
-                    ImgUrl = "https://picsum.photos/400",
+                    ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
                     active = true,
                     DateAdded = DateTimeOffset.Parse("14/03/2017"),
                 },
@@ -117,7 +118,7 @@ namespace PangWeb.Services
                     ProductCategoryId = 2,
                     Name = "Customized T-shirt",
                     Description = "Stand out with fresh swag!",
-                    ImgUrl = "https://picsum.photos/400",
+                    ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
                     active = true,
                     DateAdded = DateTimeOffset.Parse("17/01/2021"),
                 },
@@ -133,6 +134,11 @@ namespace PangWeb.Services
         {
             return new List<ProductCategory>()
             {
+                new ProductCategory
+                {
+                    Id = 0,
+                    Category = "All",
+                },
                 new ProductCategory
                 {
                     Id = 1,

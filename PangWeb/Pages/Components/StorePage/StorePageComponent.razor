@@ -1,15 +1,20 @@
 ﻿@page "/Store/{category}";
 @using PangWeb.Services
 
-<h3>Store: @category</h3>
+<div class="container">
+    <h3>Store: @category</h3>
 
-@foreach (var product in products)
-{
-    <div>
-        <h5>@product.Name</h5>
-        <p>@product.Description</p>
-    </div>
-}
+    @foreach (var product in products)
+    {
+        <div class="card d-inline-block m-2" style="width: 18rem;">
+          <img src="@product.ImgUrl" class="card-img-top" alt="...">
+          <div class="card-body text-dark">
+            <h5 class="card-title">@product.Name</h5>
+            <p class="card-text">@product.Description</p>
+          </div>
+        </div>
+    }
+</div>
 
 @code {
     [Parameter]
@@ -35,7 +40,7 @@
     private void GetListOfProductsForPage()
     {
         var categoryId = _productService.GetCategoryId(category);
-        products = _productService.GetAllProductsByCategory(categoryId);
+        if (categoryId != null) products = _productService.GetAllProductsByCategory(categoryId);
     }
 
 }

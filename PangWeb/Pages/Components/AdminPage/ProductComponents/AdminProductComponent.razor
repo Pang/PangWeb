@@ -1,0 +1,29 @@
+﻿<section class="container">
+    <h3>Products</h3>
+    <button class="btn btn-success mb-3">+</button>
+    <table class="table table-dark table-striped text-white">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>DateAdded</th>
+            <th>Active</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in _productService.GetAllProductsAdmin())
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td class="w-50">@item.Description</td>
+                <td>@item.DateAdded.ToString("dd/MM/yyyy - HH:mm:ss")</td>
+                <td>@(item.active ? "Yes" : "No")</td>
+                <td @onclick="() => SetSelectedId(item.Id)" style="color: yellow">&#9998;</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>

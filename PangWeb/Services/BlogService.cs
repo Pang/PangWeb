@@ -89,7 +89,7 @@ namespace PangWeb.Services
                 new Blog {
                     Id = 3,
                     Title = "New stuff",
-                    Summary = "We gon be workin on a new game, LOTR-inspired with castles and fantasy stuff. Based in the same universe as ShieldMaidens",
+                    Summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                     ImgUrl = "https://picsum.photos/400",
                     active = true,
                     Date = DateTimeOffset.Parse("17/01/2021"),

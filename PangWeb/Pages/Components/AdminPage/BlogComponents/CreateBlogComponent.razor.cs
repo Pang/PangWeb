@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 using PangWeb.Services;
 using PangWeb.Shared;
 
-namespace PangWeb.Pages.Components.AdminPage
+namespace PangWeb.Pages.Components.AdminPage.BlogComponents
 {
     public partial class CreateBlogComponent
     {
@@ -13,6 +13,12 @@ namespace PangWeb.Pages.Components.AdminPage
 
         [Parameter]
         public Blog BlogForm { get; set; } = new Blog();
+
+        [Parameter]
+        public bool dialogOpen { get; set; } = false;
+
+        [Parameter]
+        public EventCallback<bool> OnCreatePostDialogClose { get; set; }
 
         public void SavePostToList()
         {

@@ -1,0 +1,34 @@
+﻿<section class="container">
+    <h3>Blogs / Articles</h3>
+    <button class="btn btn-success mb-3" @onclick="() => createPostDialogOpen = true">+</button>
+    <table class="table table-dark table-striped text-white">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Summary</th>
+            <th>Date</th>
+            <th>Active</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in _blogService.GetAllBlogs())
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Title</td>
+                <td class="w-50">@item.Summary</td>
+                <td>@item.Date.ToString("dd/MM/yyyy - HH:mm:ss")</td>
+                <td>@(item.active ? "Yes" : "No")</td>
+                <td @onclick="() => SetSelectedId(item.Id)" style="color: yellow">&#9998;</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>
+
+<!-- If selectedId != null => show dialog -->
+<EditBlogDialogComponent SelectedId="@SelectedId" OnModalClose="SetSelectedId"></EditBlogDialogComponent>
+
+<CreateBlogComponent dialogOpen="createPostDialogOpen" OnCreatePostDialogClose="CloseCreateBlogDialog"></CreateBlogComponent>
