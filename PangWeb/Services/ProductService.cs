@@ -1,0 +1,154 @@
+﻿using PangWeb.Shared;
+
+namespace PangWeb.Services
+{
+    public class ProductService
+    {
+        private List<Product> products;
+        private List<ProductCategory> productCategories;
+        private int idTracker;
+
+        public ProductService()
+        {
+            products = SeededData();
+            productCategories = SeededProductTypesData();
+            idTracker = GetAllProducts().Count();
+        }
+
+        /* Get a product by its ID */
+        public Product GetProductById(int id)
+        {
+            return products.Where(x => x.Id == id).FirstOrDefault();
+        }
+
+        /* Get List of all products */
+        public List<Product> GetAllProducts()
+        {
+            return products.OrderByDescending(x => x.DateAdded)
+                .Where(x => x.active)
+                .Join(
+                    productCategories, 
+                    p => p.ProductCategoryId, 
+                    pc => pc.Id,
+                    (product, category) => new Product(product, category)
+                 )
+                .ToList();
+        }
+
+        /* Get List of all products by category */
+        public List<Product> GetAllProductsByCategory(int categoryId)
+        {
+            return products.OrderByDescending(x => x.DateAdded)
+                .Where(x => x.active && x.ProductCategoryId == categoryId)
+                .Join(
+                    productCategories,
+                    p => p.ProductCategoryId,
+                    pc => pc.Id,
+                    (product, category) => new Product(product, category)
+                 )
+                .ToList();
+        }
+
+        /* Get List of all products */
+        public List<Product> GetAllProductsAdmin()
+        {
+            // todo: check admin
+            return products.OrderByDescending(x => x.DateAdded).ToList();
+        }
+
+        /* Add a new products to the list */
+        public void AddNewProduct(Product productForm)
+        {
+            if (productForm.Name != null && productForm.Description != null)
+            {
+                productForm.DateAdded = DateTimeOffset.Now;
+                productForm.Id = ++idTracker;
+                products.Add(productForm);
+            }
+        }
+
+        /* Disable products from list */
+        public void DeleteProduct(Product productForm)
+        {
+            // todo: check admin
+            if (productForm != null)
+            {
+                var productIndex = products.FindIndex(x => x.Id == productForm.Id);
+                products[productIndex].active = false;
+            }
+        }
+
+        /* Reactivate products from list */
+        public void ReactivateProduct(Product productForm)
+        {
+            // todo: check admin
+            if (productForm != null)
+            {
+                var productIndex = products.FindIndex(x => x.Id == productForm.Id);
+                products[productIndex].active = true;
+            }
+        }
+
+        private List<Product> SeededData()
+        {
+            return new List<Product>()
+            {
+                new Product
+                {
+                    Id = 1,
+                    ProductCategoryId = 1,
+                    Name = "Canvas Art Piece 1",
+                    Description = "Such beautiful scenery",
+                    ImgUrl = "https://picsum.photos/400",
+                    active = true,
+                    DateAdded = DateTimeOffset.Parse("11/05/2015"),
+                },
+                new Product {
+                    Id = 2,
+                    ProductCategoryId = 3,
+                    Name = "Customized Mug",
+                    Description = "Fill me up!",
+                    ImgUrl = "https://picsum.photos/400",
+                    active = true,
+                    DateAdded = DateTimeOffset.Parse("14/03/2017"),
+                },
+                new Product {
+                    Id = 3,
+                    ProductCategoryId = 2,
+                    Name = "Customized T-shirt",
+                    Description = "Stand out with fresh swag!",
+                    ImgUrl = "https://picsum.photos/400",
+                    active = true,
+                    DateAdded = DateTimeOffset.Parse("17/01/2021"),
+                },
+            };
+        }
+
+        public int GetCategoryId(string category)
+        {
+            return productCategories.Where(x => x.Category == category).FirstOrDefault().Id;
+        }
+
+        private List<ProductCategory> SeededProductTypesData()
+        {
+            return new List<ProductCategory>()
+            {
+                new ProductCategory
+                {
+                    Id = 1,
+                    Category = "Art",
+                },
+                new ProductCategory
+                {
+                    Id = 2,
+                    Category = "Clothes",
+                },
+                new ProductCategory
+                {
+                    Id = 3,
+                    Category = "Merch",
+                },
+            };
+        }
+    }
+}

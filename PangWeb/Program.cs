@@ -9,5 +9,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddSingleton<BlogService>();
+builder.Services.AddSingleton<ProductService>();
 
 await builder.Build().RunAsync();

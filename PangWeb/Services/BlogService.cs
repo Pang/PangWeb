@@ -13,7 +13,7 @@ namespace PangWeb.Services
             idTracker = GetAllBlogs().Count();
         }
 
-        /* Get a block by its ID */
+        /* Get a blog by its ID */
         public Blog GetBlogById(int id)
         {
             return blogs.Where(x => x.Id == id).FirstOrDefault();

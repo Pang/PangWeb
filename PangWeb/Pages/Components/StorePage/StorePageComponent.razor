@@ -1,7 +1,41 @@
-﻿@page "/Store";
+﻿@page "/Store/{category}";
+@using PangWeb.Services
 
-<h3>StorePageComponent</h3>
+<h3>Store: @category</h3>
+
+@foreach (var product in products)
+{
+    <div>
+        <h5>@product.Name</h5>
+        <p>@product.Description</p>
+    </div>
+}
 
 @code {
+    [Parameter]
+    public string? category { 
+        get 
+        {
+            return _category;
+        }
+        set
+        {
+            if (value != null) _category = value;
+            GetListOfProductsForPage();
+        }
+    }
+
+    private string? _category;
+    [Inject]
+    private ProductService _productService { get; set; }
+
+    public List<Product> products { get; set; } = new List<Product>();
+
+
+    private void GetListOfProductsForPage()
+    {
+        var categoryId = _productService.GetCategoryId(category);
+        products = _productService.GetAllProductsByCategory(categoryId);
+    }
 
 }
