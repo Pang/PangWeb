@@ -1,4 +1,6 @@
-﻿<nav class="navbar navbar-expand-lg navbar-light">
+﻿@using PangWeb.Pages.Components.User
+@using PangWeb.Services
+<nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">PangWeb</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,13 +19,19 @@
                 Store
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/Store/All">Everything</a></li>
-                <li><a class="dropdown-item" href="/Store/Art">Art</a></li>
-                <li><a class="dropdown-item" href="/Store/Clothes">Clothes</a></li>
-                <li><a class="dropdown-item" href="/Store/Merch">Merch</a></li>
+                @foreach (var category in _productService.getAllCategories())
+                {
+                    <li><a class="dropdown-item" href="/Store/@category.Category">@category.Category</a></li>
+                }
               </ul>
             </li>
         </section>
+
+        <!-- Login/Register -->
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" @onclick="() => openRegisterDialog = true">Login/Register</a>
+        </li>
+
         <!-- Admin -->
         <li class="nav-item">
             <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
@@ -36,3 +44,16 @@
     </div>
   </div>
 </nav>
+
+<RegisterDialogComponent dialogOpen="openRegisterDialog" OnDialogClose="CloseRegisterDialog"></RegisterDialogComponent>
+
+@code {
+    [Inject]
+    private ProductService _productService { get; set; }
+    private bool openRegisterDialog; 
+
+    private void CloseRegisterDialog()
+    {
+        openRegisterDialog = false;
+    }
+}

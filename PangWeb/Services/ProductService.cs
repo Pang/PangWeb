@@ -15,6 +15,11 @@ namespace PangWeb.Services
             idTracker = GetAllProducts().Count();
         }
 
+        public List<ProductCategory> getAllCategories()
+        {
+            return productCategories;
+        }
+
         /* Get a product by its ID */
         public Product GetProductById(int id)
         {

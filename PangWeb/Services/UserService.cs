@@ -1,4 +1,5 @@
-﻿using PangWeb.Shared;
+﻿using Microsoft.AspNetCore.Components;
+using PangWeb.Shared;
 
 namespace PangWeb.Services
 {
@@ -9,6 +10,14 @@ namespace PangWeb.Services
         public UserService()
         {
             _users = SeededData();
+        }
+
+        public void RegisterUser(UserRegister registerForm)
+        {
+            Console.WriteLine(registerForm.Email);
+            Console.WriteLine(registerForm.Forename);
+            Console.WriteLine(registerForm.Surname);
+            Console.WriteLine(registerForm.Password);
         }
 
         private List<User> SeededData()

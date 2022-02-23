@@ -1,27 +1,26 @@
-﻿@if (dialogOpen)
+﻿@using PangWeb.Services
+@if (dialogOpen)
 {
-    <dialog open style="width: 500px; top: 25%">
+    <dialog open tabindex="1" style="width: 500px; top: 25%; z-index: 1">
         <section class="container">
-            <h3>New Product</h3>
-            <EditForm Model="@ProductForm" OnValidSubmit="@SaveProductToList">
+            <h3>Register</h3>
+            <EditForm Model="@UserForm" OnValidSubmit="@RegisterNewUser">
                 <div class="form-group row w-50 mx-0">
-                    <InputText id="name" placeholder="Name" @bind-Value="@ProductForm.Name"></InputText><br/>
+                    <InputText id="forename" placeholder="Forename" @bind-Value="@UserForm.Forename"></InputText><br/>
                 </div>
                 <div class="form-group row w-50 mx-0">
-                    <InputText id="imgUrl" placeholder="Image Url" @bind-Value="@ProductForm.ImgUrl"></InputText><br/>
+                    <InputText id="surname" placeholder="Surname" @bind-Value="@UserForm.Surname"></InputText><br/>
                 </div>
+                <div class="form-group row w-50 mx-0">
+                    <InputText id="email" placeholder="Email" @bind-Value="@UserForm.Email"></InputText><br/>
+                </div>
+
                 <div class="form-group row w-100 mt-1 mx-0">
-                    <InputSelect id="productCategory" placeholder="Select a category" @bind-Value="@ProductForm.ProductCategoryId">
-                        <option value="1">Art</option>
-                        <option value="2">Clothes</option>
-                        <option value="3">Merch</option>
-                    </InputSelect>
+                    <InputText type="password" id="productCategory" placeholder="Select a category" @bind-Value="@UserForm.Password"></InputText> <br />
                 </div>
-                <div class="form-group row w-100 mt-1 mx-0">
-                    <InputTextArea id="description" placeholder="Description" @bind-Value="@ProductForm.Description"></InputTextArea>
-                </div>
+
                 <div style="display: flex; justify-content: space-between">
-                    <button class="btn" type="button" @onclick="() => OnCreateProductDialogClose.InvokeAsync()">Close</button>
+                    <button class="btn" type="button" @onclick="() => OnDialogClose.InvokeAsync()">Close</button>
                     <button class="btn btn-success d-grid mt-2" type="submit">Submit</button>
                 </div>
             </EditForm>
@@ -30,5 +29,19 @@
 }
 
 @code {
-    private bool dialogOpen;
+    [Parameter]
+    public EventCallback<bool> OnDialogClose { get; set; }
+    [Parameter]
+    public bool dialogOpen { get; set; }
+    [Inject]
+    private UserService _userService { get; set; }
+
+    private UserRegister UserForm = new UserRegister();
+
+    protected override void OnInitialized() {}
+
+    private void RegisterNewUser()
+    {
+        _userService.RegisterUser(UserForm);
+    }
 }
