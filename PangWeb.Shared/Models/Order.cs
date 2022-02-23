@@ -2,8 +2,8 @@
 {
     public class Order
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public long Id { get; set; }
+        public long UserId { get; set; }
         public string TotalOrderPrice { get; set; }
         public DateTimeOffset OrderPlacedDt { get; set; }
         public bool OrderComplete { get; set; }

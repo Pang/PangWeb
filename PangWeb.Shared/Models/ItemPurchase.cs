@@ -2,10 +2,10 @@
 {
     public class ItemPurchase
     {
-        public int Id { get; set; }
-        public int OrderId { get; set; }
-        public int UserPurchasedFk { get; set; }
-        public int ProductPurchasedFk { get; set; }
+        public long Id { get; set; }
+        public long OrderId { get; set; }
+        public long UserPurchasedId { get; set; }
+        public long ProductPurchasedId { get; set; }
         public string PricePurchased { get; set; }
         public DateTimeOffset PurchaseDt { get; set; }
         public bool refunded { get; set; }

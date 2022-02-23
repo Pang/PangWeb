@@ -2,8 +2,8 @@
 {
     public class OrderBasket
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
+        public long Id { get; set; }
+        public long UserId { get; set; }
         public List<Product> Products { get; set; }
         public string TotalOrderPrice { get; set; }
         public DateTimeOffset LastUpdatedDt { get; set; }
