@@ -26,34 +26,55 @@
               </ul>
             </li>
         </section>
+        <section class="d-flex">
+            <!-- Login/Register -->
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" @onclick="() => loginDialogOpen = true">Login/Register</a>
+            </li>
 
-        <!-- Login/Register -->
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" @onclick="() => openRegisterDialog = true">Login/Register</a>
-        </li>
-
-        <!-- Admin -->
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
-        </li>
+            <!-- Admin -->
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
+            </li>
+        </section>
       </ul>
-@*      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>*@
     </div>
   </div>
 </nav>
 
-<RegisterDialogComponent dialogOpen="openRegisterDialog" OnDialogClose="CloseRegisterDialog"></RegisterDialogComponent>
+<!-- Modals/Dialogs -->
+@if (loginDialogOpen)
+{
+    <dialog open style="width: 500px; top: 25%; z-index: 1">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button" role="tab" aria-controls="login" aria-selected="true">Login</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="register-tab" data-bs-toggle="tab" data-bs-target="#register" type="button" role="tab" aria-controls="register" aria-selected="false">Register</button>
+          </li>
+          <span style="margin-left: auto;" @onclick="() => loginDialogOpen = false">X</span>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+            <LoginComponent></LoginComponent>
+          </div>
+          <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+            <RegisterComponent></RegisterComponent>
+          </div>
+        </div>
+    </dialog>
+}
+
 
 @code {
     [Inject]
     private ProductService _productService { get; set; }
-    private bool openRegisterDialog; 
+    private bool loginDialogOpen; 
 
     private void CloseRegisterDialog()
     {
-        openRegisterDialog = false;
+        loginDialogOpen = false;
     }
 }

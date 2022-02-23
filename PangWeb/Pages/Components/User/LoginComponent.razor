@@ -1,0 +1,28 @@
+﻿@using PangWeb.Services
+
+<section class="container">
+    <h3>Login</h3>
+    <EditForm Model="@UserForm" OnValidSubmit="@RegisterNewUser">
+        <div class="form-group row w-50 mx-0">
+            <InputText  placeholder="Email" @bind-Value="@UserForm.Email"></InputText><br/>
+        </div>
+
+        <div class="form-group row w-100 mt-1 mx-0">
+            <InputText type="password" placeholder="Password" @bind-Value="@UserForm.Password"></InputText> <br />
+        </div>
+
+        <div style="display: flex; justify-content: space-between">
+            <button class="btn btn-success d-grid mt-2" type="submit">Submit</button>
+        </div>
+    </EditForm>
+</section>
+
+@code {
+    [Inject]
+    private UserService _userService { get; set; }
+    private UserRegister UserForm = new UserRegister();
+
+    protected override void OnInitialized() {}
+
+    private void RegisterNewUser() => _userService.RegisterUser(UserForm);
+}
