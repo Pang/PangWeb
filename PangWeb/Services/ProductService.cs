@@ -4,13 +4,13 @@ namespace PangWeb.Services
 {
     public class ProductService
     {
-        private List<Product> products;
+        private List<Product> _products;
         private List<ProductCategory> productCategories;
         private int idTracker;
 
         public ProductService()
         {
-            products = SeededData();
+            _products = SeededData();
             productCategories = SeededProductTypesData();
             idTracker = GetAllProducts().Count();
         }
@@ -18,13 +18,13 @@ namespace PangWeb.Services
         /* Get a product by its ID */
         public Product GetProductById(int id)
         {
-            return products.Where(x => x.Id == id).FirstOrDefault();
+            return _products.Where(x => x.Id == id).FirstOrDefault();
         }
 
-        /* Get List of all products */
+        /* Get List of all _products */
         public List<Product> GetAllProducts()
         {
-            return products.OrderByDescending(x => x.DateAdded)
+            return _products.OrderByDescending(x => x.DateAdded)
                 .Where(x => x.active)
                 .Join(
                     productCategories, 
@@ -38,7 +38,7 @@ namespace PangWeb.Services
         /* Get List of all products by category */
         public List<Product> GetAllProductsByCategory(int categoryId)
         {
-            return products.OrderByDescending(x => x.DateAdded)
+            return _products.OrderByDescending(x => x.DateAdded)
                 .Where(x => x.active && (x.ProductCategoryId == categoryId || categoryId == productCategories.First(x => x.Category == "All").Id))
                 .Join(
                     productCategories,
@@ -53,7 +53,7 @@ namespace PangWeb.Services
         public List<Product> GetAllProductsAdmin()
         {
             // todo: check admin
-            return products.OrderByDescending(x => x.DateAdded).ToList();
+            return _products.OrderByDescending(x => x.DateAdded).ToList();
         }
 
         /* Add a new products to the list */
@@ -63,7 +63,7 @@ namespace PangWeb.Services
             {
                 productForm.DateAdded = DateTimeOffset.Now;
                 productForm.Id = ++idTracker;
-                products.Add(productForm);
+                _products.Add(productForm);
                 return true;
             }
             return false;
@@ -75,32 +75,32 @@ namespace PangWeb.Services
             // todo: check admin
             if (productForm != null)
             {
-                var productIndex = products.FindIndex(x => x.Id == productForm.Id);
-                products[productIndex] = productForm;
+                var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
+                _products[productIndex] = productForm;
                 return true;
             }
             return false;
         }
 
-        /* Disable products from list */
+        /* Disable _products from list */
         public void DeleteProduct(Product productForm)
         {
             // todo: check admin
             if (productForm != null)
             {
-                var productIndex = products.FindIndex(x => x.Id == productForm.Id);
-                products[productIndex].active = false;
+                var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
+                _products[productIndex].active = false;
             }
         }
 
-        /* Reactivate products from list */
+        /* Reactivate _products from list */
         public void ReactivateProduct(Product productForm)
         {
             // todo: check admin
             if (productForm != null)
             {
-                var productIndex = products.FindIndex(x => x.Id == productForm.Id);
-                products[productIndex].active = true;
+                var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
+                _products[productIndex].active = true;
             }
         }
 
