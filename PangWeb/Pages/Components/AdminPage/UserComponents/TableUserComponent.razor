@@ -1,0 +1,48 @@
+﻿@using PangWeb.Services;
+@using PangWeb.Shared.DTOs
+
+<section class="container">
+    <h3>Users</h3>
+    @*<button class="btn btn-success mb-3"  @onclick="() => createProductDialogOpen = true">+</button>*@
+    <table class="table table-dark table-striped text-white">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Email</th>
+            <th>Name</th>
+            <th>LastLoginDt</th>
+            <th>AccountCreationDt</th>
+            <th>Purchases</th>
+            <th>PrivilageLevel</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Users)
+        {
+            <tr>
+                <td>@item.id</td>
+                <td>@item.email</td>
+                <td>@item.forename @item.surname</td>
+                <td>@item.lastLoginDt.ToString("dd/MM/yyyy - HH:mm:ss")</td>
+                <td>@item.accountCreationDt.ToString("dd/MM/yyyy - HH:mm:ss")</td>
+                <td>@(item.purchases != null ? item.purchases.Count() : 0)</td>
+                <td>@item.privilageLevel</td>
+                <td style="color: yellow">&#9998;</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</section>
+
+@code {
+    [Inject]
+    private UserService _userService { get; set; }
+    public List<UserDto> Users = new List<UserDto>();
+
+    protected async override void OnInitialized()
+    {
+        Users = await _userService.GetAllUsersAdmin();
+        StateHasChanged();
+    }
+}

@@ -29,7 +29,7 @@ namespace PangWeb.API.Controllers
             var createdUser = await _repo.Register(userRegister);
             var userDto = new UserDto(createdUser);
 
-            return StatusCode(201);
+            return Ok(userDto);
         }
 
         [HttpPost("login")]

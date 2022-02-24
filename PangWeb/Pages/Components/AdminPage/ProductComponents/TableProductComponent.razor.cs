@@ -3,7 +3,7 @@ using PangWeb.Services;
 
 namespace PangWeb.Pages.Components.AdminPage.ProductComponents
 {
-    public partial class AdminProductComponent
+    public partial class TableProductComponent
     {
         [Inject]
         private ProductService _productService { get; set; }

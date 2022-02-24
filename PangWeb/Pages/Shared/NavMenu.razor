@@ -64,7 +64,7 @@
 
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
-            <LoginComponent></LoginComponent>
+            <LoginComponent OnLoggedIn="CloseRegisterDialog"></LoginComponent>
           </div>
           <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
             <RegisterComponent></RegisterComponent>
@@ -80,10 +80,12 @@
     [Inject]
     private UserService _userService { get; set; }
 
+
     private bool loginDialogOpen; 
 
     private void CloseRegisterDialog()
     {
         loginDialogOpen = false;
+        //StateHasChanged();
     }
 }

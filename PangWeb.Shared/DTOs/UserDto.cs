@@ -17,6 +17,9 @@ namespace PangWeb.Shared.DTOs
             forename = user.Forename;
             surname = user.Surname;
             privilageLevel = user.PrivilageLevel;
+            accountCreationDt = user.AccountCreationDt;
+            lastLoginDt = user.LastLoginDt;
+            purchases = user.Purchases;
         }
 
         public long id { get; set; }
@@ -24,5 +27,10 @@ namespace PangWeb.Shared.DTOs
         public string forename { get; set; }
         public string surname { get; set; }
         public short privilageLevel { get; set; }
+
+        public DateTime accountCreationDt { get; set; }
+        public DateTime lastLoginDt { get; set; }
+        public List<ItemPurchase> purchases { get; set; }
+
     }
 }

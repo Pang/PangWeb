@@ -24,13 +24,17 @@
 </section>
 
 @code {
+    [Parameter]
+    public EventCallback<bool> OnLoggedIn { get; set; }
+
     [Inject]
     private UserService _userService { get; set; }
     public UserLoginDto UserForm = new ();
 
+
     private async void LoginUser()
     {
         _userService.UserLoggedIn = await _userService.LoginUser(UserForm);
-        StateHasChanged();
+        await OnLoggedIn.InvokeAsync();
     }
 }
