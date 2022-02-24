@@ -1,8 +1,10 @@
 ﻿@using PangWeb.Services
+@using PangWeb.Shared.DTOs
+@using Microsoft.AspNetCore.Components
 
 <section class="container">
     <h3>Login</h3>
-    <EditForm Model="@UserForm" OnValidSubmit="@RegisterNewUser">
+    <EditForm Model="@UserForm" OnValidSubmit="@LoginUser">
         <div class="form-group row w-50 mx-0">
             <InputText  placeholder="Email" @bind-Value="@UserForm.Email"></InputText><br/>
         </div>
@@ -20,9 +22,9 @@
 @code {
     [Inject]
     private UserService _userService { get; set; }
-    private UserRegister UserForm = new UserRegister();
+    private UserLoginDto UserForm = new UserLoginDto();
 
     protected override void OnInitialized() {}
 
-    private void RegisterNewUser() => _userService.RegisterUser(UserForm);
+    private void LoginUser() => _userService.LoginUser(UserForm);
 }

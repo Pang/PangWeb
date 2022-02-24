@@ -21,8 +21,9 @@ namespace PangWeb.API.Controllers
         [ProducesResponseType(201)]
         public async Task<IActionResult> Register(UserRegisterDto userRegister)
         {
+            Console.WriteLine("test123");
+            Console.WriteLine(userRegister.Email);
             userRegister.Email = userRegister.Email.ToLower();
-
             if (await _repo.UserExists(userRegister.Email))
                 return BadRequest("Username already exists");
 
@@ -42,5 +43,4 @@ namespace PangWeb.API.Controllers
             return Ok();
         }
     }
-}
 }

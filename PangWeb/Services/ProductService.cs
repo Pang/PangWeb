@@ -21,7 +21,7 @@ namespace PangWeb.Services
         }
 
         /* Get a product by its ID */
-        public Product GetProductById(int id)
+        public Product GetProductById(long id)
         {
             return _products.Where(x => x.Id == id).FirstOrDefault();
         }
@@ -41,7 +41,7 @@ namespace PangWeb.Services
         }
 
         /* Get List of all products by category */
-        public List<Product> GetAllProductsByCategory(int categoryId)
+        public List<Product> GetAllProductsByCategory(long categoryId)
         {
             return _products.OrderByDescending(x => x.DateAdded)
                 .Where(x => x.active && (x.ProductCategoryId == categoryId || categoryId == productCategories.First(x => x.Category == "All").Id))
@@ -145,7 +145,7 @@ namespace PangWeb.Services
             };
         }
 
-        public int GetCategoryId(string category)
+        public long GetCategoryId(string category)
         {
             return productCategories.Where(x => x.Category == category).FirstOrDefault().Id;
         }

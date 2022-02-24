@@ -14,7 +14,7 @@ namespace PangWeb.Services
         }
 
         /* Get a blog by its ID */
-        public Blog GetBlogById(int id)
+        public Blog GetBlogById(long id)
         {
             return blogs.Where(x => x.Id == id).FirstOrDefault();
         }

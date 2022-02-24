@@ -1,15 +1,19 @@
-﻿using PangWeb.Shared;
+﻿using System.Text;
+using System.Text.Json;
+using PangWeb.Shared;
 using PangWeb.Shared.DTOs;
 
 namespace PangWeb.Services
 {
     public class UserService
     {
-        private List<User> _users;
+        private readonly HttpClient _httpClient;
+        private List<User> _users = new List<User>();
         private User UserLoggedIn;
 
-        public UserService()
+        public UserService(HttpClient httpClient)
         {
+            _httpClient = httpClient;
             _users = SeededData();
         }
 
@@ -18,23 +22,22 @@ namespace PangWeb.Services
             return _users;
         }
 
-        public void RegisterUser(UserRegisterDto registerForm)
+        public async Task<User> RegisterUser(UserRegisterDto registerForm)
         {
-            byte[] passwordHash, passwordSalt;
-            // Creates hash here
+            Console.WriteLine("hit");
+            var registerFormJson = new
+                StringContent(JsonSerializer.Serialize(registerForm), Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync("api/user/register", registerFormJson);
+            Console.WriteLine(1);
 
-            User user = new User()
-            { 
-                Id = _users.Count + 1,
-                Forename = registerForm.Forename,
-                Surname = registerForm.Surname,
-                Email = registerForm.Email,
-                AccountCreationDt = DateTime.UtcNow,
-                LastLoginDt = DateTime.UtcNow,
-            };
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine(2);
+                return await JsonSerializer.DeserializeAsync<User>(await response.Content.ReadAsStreamAsync());
+            }
 
-            if (!_users.Any(x => x.Email == user.Email)) 
-                _users.Add(user);
+            Console.WriteLine(3);
+            return null;
         }
 
         public void LoginUser(UserLoginDto loginForm)
@@ -56,7 +59,7 @@ namespace PangWeb.Services
                     Email = "John.Smith@email.com",
                     Forename = "John",
                     Surname = "Smith",
-                    AccountCreationDt = new DateTimeOffset(),
+                    AccountCreationDt = new DateTime(),
                     privilageLevel = 3
                 },
             };

@@ -7,15 +7,15 @@ namespace PangWeb.Pages.Components.AdminPage.ProductComponents
     public partial class EditProductDialogComponent
     {
         [Parameter]
-        public EventCallback<int> OnModalClose { get; set; }
+        public EventCallback<long> OnModalClose { get; set; }
         [Inject]
         private ProductService _productService { get; set; }
         private Product EditProductForm;
         private bool showDeleteDialog;
-        private int _selectedId;
+        private long _selectedId;
 
         [Parameter]
-        public int SelectedId
+        public long SelectedId
         {
             get { return _selectedId; }
             set

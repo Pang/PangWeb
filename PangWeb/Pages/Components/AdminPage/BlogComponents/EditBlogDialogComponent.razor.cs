@@ -7,16 +7,16 @@ namespace PangWeb.Pages.Components.AdminPage.BlogComponents
     public partial class EditBlogDialogComponent
     {
         [Parameter]
-        public EventCallback<int> OnModalClose { get; set; }
+        public EventCallback<long> OnModalClose { get; set; }
         [Inject]
         private BlogService _blogService { get; set; }
         private Blog EditBlogForm;
         private bool showDeleteDialog;
 
 
-        private int _selectedId;
+        private long _selectedId;
         [Parameter]
-        public int SelectedId
+        public long SelectedId
         {
             get { return _selectedId; }
             set

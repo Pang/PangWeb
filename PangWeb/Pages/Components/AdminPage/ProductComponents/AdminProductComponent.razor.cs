@@ -16,8 +16,8 @@ namespace PangWeb.Pages.Components.AdminPage.ProductComponents
         }
 
         // Edit Product Dialog
-        private int SelectedId { get; set; } = 0;
-        private void SetSelectedId(int selectedRowId = 0)
+        private long SelectedId { get; set; } = 0;
+        private void SetSelectedId(long selectedRowId = 0)
         {
             SelectedId = selectedRowId;
         }

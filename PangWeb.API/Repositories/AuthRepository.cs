@@ -1,11 +1,12 @@
 ﻿using PangWeb.API.Data;
 using PangWeb.Shared;
 using Microsoft.EntityFrameworkCore;
+using PangWeb.API.Repositories.Interfaces;
 using PangWeb.Shared.DTOs;
 
 namespace PangWeb.API.Repositories
 {
-    public class AuthRepository
+    public class AuthRepository : IAuthRepository
     {
         private readonly DataContext _context;
         public AuthRepository(DataContext context)
