@@ -8,61 +8,56 @@ namespace PangWeb.Services
     public class UserService
     {
         private readonly HttpClient _httpClient;
-        private List<User> _users = new List<User>();
-        private User UserLoggedIn;
+        public UserDto UserLoggedIn = new ();
 
         public UserService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _users = SeededData();
+            // try if LoginUser() returns null then:
+            SeededData();
         }
 
-        public List<User> GetUsers()
-        {
-            return _users;
-        }
+        // public List<User> GetUsers() {}
 
         public async Task<User> RegisterUser(UserRegisterDto registerForm)
         {
-            Console.WriteLine("hit");
             var registerFormJson = new
                 StringContent(JsonSerializer.Serialize(registerForm), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync("api/user/register", registerFormJson);
-            Console.WriteLine(1);
+
+            var response = await _httpClient.PostAsync("api/User/register", registerFormJson);
 
             if (response.IsSuccessStatusCode)
-            {
-                Console.WriteLine(2);
                 return await JsonSerializer.DeserializeAsync<User>(await response.Content.ReadAsStreamAsync());
-            }
 
-            Console.WriteLine(3);
             return null;
         }
 
-        public void LoginUser(UserLoginDto loginForm)
+        public async Task<UserDto> LoginUser(UserLoginDto loginForm)
         {
-            var user = _users.FirstOrDefault(x => x.Email == loginForm.Email);
+            var loginFormJson = new
+                StringContent(JsonSerializer.Serialize(loginForm), Encoding.UTF8, "application/json");
 
-            // will verifyPassword hash here
-            UserLoggedIn = user;
+            var response = await _httpClient.PostAsync("api/User/login", loginFormJson);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var user = await JsonSerializer.DeserializeAsync<UserDto>(await response.Content.ReadAsStreamAsync());
+                return user;
+            }
+
+            return null;
         }
 
-        private List<User> SeededData()
+        private async void SeededData()
         {
-            Random rand = new Random();
-            return new List<User>()
+            var foo = new UserRegisterDto
             {
-                new User
-                {
-                    Id = 1,
-                    Email = "John.Smith@email.com",
-                    Forename = "John",
-                    Surname = "Smith",
-                    AccountCreationDt = new DateTime(),
-                    privilageLevel = 3
-                },
+                Email = "pang.dev@mail.com",
+                Forename = "Pang",
+                Surname = "Dev",
+                Password = "123",
             };
+            await RegisterUser(foo);
         }
     }
 }

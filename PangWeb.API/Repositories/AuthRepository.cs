@@ -16,7 +16,7 @@ namespace PangWeb.API.Repositories
 
         public async Task<User> Login(UserLoginDto userLogin)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == userLogin.Email);
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == userLogin.Email.ToLower());
 
             if (user == null) return null;
 
@@ -48,15 +48,19 @@ namespace PangWeb.API.Repositories
         {
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(userRegister.Password, out passwordHash, out passwordSalt);
+            DateTime createDT = DateTime.Now;
+
             User user = new User()
             { 
                 Email = userRegister.Email,
                 Forename = userRegister.Forename,
                 Surname = userRegister.Surname,
-                AccountCreationDt = DateTime.Now,
+                AccountCreationDt = createDT,
+                LastLoginDt = createDT,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-        }   ;
+                PrivilageLevel = userRegister.Email == "pang.dev@mail.com" ? (short)1 : (short)0,
+            };
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -76,6 +80,11 @@ namespace PangWeb.API.Repositories
         public async Task<bool> UserExists(string email)
         {
             return await _context.Users.AnyAsync(x => x.Email == email);
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            return await _context.Users.ToListAsync();
         }
     }
 }

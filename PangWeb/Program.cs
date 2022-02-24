@@ -7,7 +7,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
-builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri("http://localhost:7220") } );
+builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7220") } );
 builder.Services.AddSingleton<BlogService>();
 builder.Services.AddSingleton<ProductService>();
 builder.Services.AddSingleton<UserService>();

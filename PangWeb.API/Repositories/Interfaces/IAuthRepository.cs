@@ -8,5 +8,6 @@ namespace PangWeb.API.Repositories.Interfaces
         Task<User> Register(UserRegisterDto userRegister);
         Task<User> Login(UserLoginDto userLogin);
         Task<bool> UserExists(string email);
+        Task<List<User>> GetAllUsers();
     }
 }

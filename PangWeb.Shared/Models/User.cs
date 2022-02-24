@@ -13,6 +13,6 @@
         public DateTime LastLoginDt { get; set; }
 
         public List<ItemPurchase> Purchases { get; set; }
-        public short privilageLevel { get; set; }
+        public short PrivilageLevel { get; set; }
     }
 }

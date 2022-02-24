@@ -17,14 +17,20 @@
             <button class="btn btn-success d-grid mt-2" type="submit">Submit</button>
         </div>
     </EditForm>
+    @if (_userService.UserLoggedIn.email != null)
+    {
+        <p>Logged in as @_userService.UserLoggedIn.email</p>
+    }
 </section>
 
 @code {
     [Inject]
     private UserService _userService { get; set; }
-    private UserLoginDto UserForm = new UserLoginDto();
+    public UserLoginDto UserForm = new ();
 
-    protected override void OnInitialized() {}
-
-    private void LoginUser() => _userService.LoginUser(UserForm);
+    private async void LoginUser()
+    {
+        _userService.UserLoggedIn = await _userService.LoginUser(UserForm);
+        StateHasChanged();
+    }
 }

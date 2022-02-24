@@ -27,17 +27,22 @@
               </ul>
             </li>
         </section>
-        <section class="d-flex">
-            <!-- Login/Register -->
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" @onclick="() => loginDialogOpen = true">Login/Register</a>
-            </li>
-
-            <!-- Admin -->
-            <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
-            </li>
-        </section>
+          <section class="d-flex">
+              @if (_userService.UserLoggedIn.email == null)
+              {
+                  <!-- Login/Register -->
+                  <li class="nav-item">
+                      <a class="nav-link" aria-current="page" @onclick="() => loginDialogOpen = true">Login/Register</a>
+                  </li>
+              }
+              @if (_userService.UserLoggedIn.privilageLevel == 1)
+              {
+                  <!-- Admin -->
+                  <li class="nav-item">
+                      <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
+                  </li>
+              }
+          </section>
       </ul>
     </div>
   </div>
@@ -72,6 +77,9 @@
 @code {
     [Inject]
     private ProductService _productService { get; set; }
+    [Inject]
+    private UserService _userService { get; set; }
+
     private bool loginDialogOpen; 
 
     private void CloseRegisterDialog()

@@ -21,13 +21,13 @@ namespace PangWeb.API.Controllers
         [ProducesResponseType(201)]
         public async Task<IActionResult> Register(UserRegisterDto userRegister)
         {
-            Console.WriteLine("test123");
-            Console.WriteLine(userRegister.Email);
             userRegister.Email = userRegister.Email.ToLower();
+
             if (await _repo.UserExists(userRegister.Email))
                 return BadRequest("Username already exists");
 
-            var createdUser = _repo.Register(userRegister);
+            var createdUser = await _repo.Register(userRegister);
+            var userDto = new UserDto(createdUser);
 
             return StatusCode(201);
         }
@@ -40,7 +40,18 @@ namespace PangWeb.API.Controllers
             var userFromRepo = await _repo.Login(userLogin);
             if (userFromRepo == null) return Unauthorized();
 
-            return Ok();
+            var userDto = new UserDto(userFromRepo);
+
+            return Ok(userDto);
+        }
+
+        [HttpGet("allUsers")]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> AllUsers()
+        {
+            var usersFromRepo = await _repo.GetAllUsers();
+            return Ok(usersFromRepo);
         }
     }
 }
