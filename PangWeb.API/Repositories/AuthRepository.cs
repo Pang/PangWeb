@@ -20,6 +20,7 @@ namespace PangWeb.API.Repositories
 
             if (user == null) return null;
 
+            // if password is incorrect, return null user
             if (!VerifyPasswordHash(userLogin.Password, user.PasswordHash, user.PasswordSalt))
                 return null;
 

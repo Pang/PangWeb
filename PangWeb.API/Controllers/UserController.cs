@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PangWeb.API.Repositories.Interfaces;
+using PangWeb.API.Services.Interfaces;
 using PangWeb.Shared.DTOs;
 
 namespace PangWeb.API.Controllers
@@ -10,10 +11,12 @@ namespace PangWeb.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IAuthRepository _repo;
+        private readonly IJwtService _jwtService;
 
-        public UserController(IAuthRepository repo)
+        public UserController(IAuthRepository repo, IJwtService jwtService)
         {
             _repo = repo;
+            _jwtService = jwtService;
         }
 
         [HttpPost("register")]
@@ -40,9 +43,8 @@ namespace PangWeb.API.Controllers
             var userFromRepo = await _repo.Login(userLogin);
             if (userFromRepo == null) return Unauthorized();
 
-            var userDto = new UserDto(userFromRepo);
-
-            return Ok(userDto);
+            var jwtToken = _jwtService.CreateToken(userFromRepo);
+            return new JsonResult(jwtToken);
         }
 
         [HttpGet("allUsers")]
