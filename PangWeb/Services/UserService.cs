@@ -13,7 +13,6 @@ namespace PangWeb.Services
         public UserService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            // try if LoginUser() returns null then:
             SeededData();
         }
 
@@ -38,7 +37,7 @@ namespace PangWeb.Services
             return null;
         }
 
-        public async Task<UserDto> LoginUser(UserLoginDto loginForm)
+        public async Task<Object> LoginUser(UserLoginDto loginForm)
         {
             var loginFormJson = new
                 StringContent(JsonSerializer.Serialize(loginForm), Encoding.UTF8, "application/json");
@@ -46,13 +45,15 @@ namespace PangWeb.Services
             var response = await _httpClient.PostAsync("api/User/login", loginFormJson);
 
             if (response.IsSuccessStatusCode)
-                return await JsonSerializer.DeserializeAsync<UserDto>(await response.Content.ReadAsStreamAsync());
+                return await JsonSerializer.DeserializeAsync<Object>(await response.Content.ReadAsStreamAsync());
 
             return null;
         }
 
         private async void SeededData()
         {
+            // create login, if fails register
+            // logic for here
             var foo = new UserRegisterDto
             {
                 Email = "pang.dev@mail.com",
@@ -60,7 +61,8 @@ namespace PangWeb.Services
                 Surname = "Dev",
                 Password = "123",
             };
-            await RegisterUser(foo);    
+            await RegisterUser(foo);
+
         }
     }
 }

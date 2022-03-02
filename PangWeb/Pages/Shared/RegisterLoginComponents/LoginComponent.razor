@@ -1,6 +1,7 @@
 ﻿@using PangWeb.Services
 @using PangWeb.Shared.DTOs
 @using Microsoft.AspNetCore.Components
+@inject IJSRuntime jsr
 
 <section class="container">
     <h3>Login</h3>
@@ -34,7 +35,12 @@
 
     private async void LoginUser()
     {
-        _userService.UserLoggedIn = await _userService.LoginUser(UserForm);
+        //_userService.UserLoggedIn
+        var token = await _userService.LoginUser(UserForm);
+
+        await jsr.InvokeAsync<string>("localStorage.setItem", "token", token).ConfigureAwait(false);
+        var userdata = await jsr.InvokeAsync<string>("localStorage.getItem", "token").ConfigureAwait(false);
+        Console.WriteLine(userdata);
         await OnLoggedIn.InvokeAsync();
     }
 }
