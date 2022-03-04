@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using System.Text.Json;
 using PangWeb.Shared;
 using PangWeb.Shared.DTOs;
@@ -9,11 +10,26 @@ namespace PangWeb.Services
     {
         private readonly HttpClient _httpClient;
         public UserDto UserLoggedIn = new ();
+        public JwtSecurityToken UserToken;
+        public string userName;
 
         public UserService(HttpClient httpClient)
         {
             _httpClient = httpClient;
             SeededData();
+        }
+
+        public async void HandleToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            UserToken = handler.ReadJwtToken(token);
+            userName = GetTokenProperty("name");
+        }
+
+        public string GetTokenProperty(string key)
+        {
+            if (UserToken != null) return UserToken.Payload.FirstOrDefault(x => x.Key == key).Value.ToString();
+            return null;
         }
 
         public async Task<List<UserDto>> GetAllUsersAdmin() 
@@ -37,7 +53,7 @@ namespace PangWeb.Services
             return null;
         }
 
-        public async Task<Object> LoginUser(UserLoginDto loginForm)
+        public async Task<string> LoginUser(UserLoginDto loginForm)
         {
             var loginFormJson = new
                 StringContent(JsonSerializer.Serialize(loginForm), Encoding.UTF8, "application/json");
@@ -45,7 +61,7 @@ namespace PangWeb.Services
             var response = await _httpClient.PostAsync("api/User/login", loginFormJson);
 
             if (response.IsSuccessStatusCode)
-                return await JsonSerializer.DeserializeAsync<Object>(await response.Content.ReadAsStreamAsync());
+                return await JsonSerializer.DeserializeAsync<string>(await response.Content.ReadAsStreamAsync());
 
             return null;
         }

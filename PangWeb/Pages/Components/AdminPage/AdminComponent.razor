@@ -2,6 +2,7 @@
 @using PangWeb.Pages.Components.AdminPage.BlogComponents
 @using PangWeb.Pages.Components.AdminPage.ProductComponents
 @using PangWeb.Pages.Components.AdminPage.UserComponents
+@using PangWeb.Services
 
 <TableBlogComponent></TableBlogComponent>
 
@@ -12,3 +13,17 @@
 <br />
 
 <TableUserComponent></TableUserComponent>
+
+@code{
+    [Inject]
+    private UserService _userService { get; set; }
+    [Inject]
+    private NavigationManager NavManager { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        base.OnInitialized();
+        var email = _userService.GetTokenProperty("email");
+        if(email == null || email.ToLower() != "pang.dev@mail.com") NavManager.NavigateTo("/", true);
+    }
+}

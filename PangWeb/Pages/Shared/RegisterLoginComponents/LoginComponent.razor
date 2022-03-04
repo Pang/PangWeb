@@ -18,10 +18,6 @@
             <button class="btn btn-success d-grid mt-2" type="submit">Submit</button>
         </div>
     </EditForm>
-    @if (_userService.UserLoggedIn.email != null)
-    {
-        <p>Logged in as @_userService.UserLoggedIn.email</p>
-    }
 </section>
 
 @code {
@@ -35,12 +31,9 @@
 
     private async void LoginUser()
     {
-        //_userService.UserLoggedIn
         var token = await _userService.LoginUser(UserForm);
-
         await jsr.InvokeAsync<string>("localStorage.setItem", "token", token).ConfigureAwait(false);
-        var userdata = await jsr.InvokeAsync<string>("localStorage.getItem", "token").ConfigureAwait(false);
-        Console.WriteLine(userdata);
+        _userService.HandleToken(token);
         await OnLoggedIn.InvokeAsync();
     }
 }

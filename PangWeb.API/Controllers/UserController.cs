@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PangWeb.API.Repositories.Interfaces;
 using PangWeb.API.Services.Interfaces;
@@ -47,6 +48,7 @@ namespace PangWeb.API.Controllers
             return new JsonResult(jwtToken);
         }
 
+        [Authorize]
         [HttpGet("allUsers")]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]

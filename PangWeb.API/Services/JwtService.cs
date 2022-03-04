@@ -27,7 +27,7 @@ namespace PangWeb.API.Services
             };
 
             // JWT: Part of Signature
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AppSettings:Token"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AppSettings:Secret"]));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 

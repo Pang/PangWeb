@@ -1,7 +1,7 @@
 ﻿@using PangWeb.Pages.Shared.RegisterLoginComponents
 @using PangWeb.Services
 
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light text-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">PangWeb</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,22 +27,26 @@
               </ul>
             </li>
         </section>
-          <section class="d-flex">
-              @if (_userService.UserLoggedIn.email == null)
-              {
-                  <!-- Login/Register -->
-                  <li class="nav-item">
-                      <a class="nav-link" aria-current="page" @onclick="() => loginDialogOpen = true">Login/Register</a>
-                  </li>
-              }
-              @if (_userService.UserLoggedIn.privilageLevel == 1)
-              {
-                  <!-- Admin -->
-                  <li class="nav-item">
-                      <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
-                  </li>
-              }
-          </section>
+        <section class="d-flex">
+            @if (_userService.GetTokenProperty("name") == null)
+            {
+                <!-- Login/Register -->
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" @onclick="() => loginDialogOpen = true">Login/Register</a>
+                </li>
+            }
+            else
+            {
+                <span>@_userService.GetTokenProperty("email")</span>
+            }
+            @if (_userService.UserLoggedIn.privilageLevel == 1)
+            {
+                <!-- Admin -->
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
+                </li>
+            }
+        </section>
       </ul>
     </div>
   </div>
