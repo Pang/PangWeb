@@ -16,7 +16,6 @@ namespace PangWeb.Services
         public UserService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            SeededData();
         }
 
         public async void HandleToken(string token)
@@ -64,21 +63,6 @@ namespace PangWeb.Services
                 return await JsonSerializer.DeserializeAsync<string>(await response.Content.ReadAsStreamAsync());
 
             return null;
-        }
-
-        private async void SeededData()
-        {
-            // create login, if fails register
-            // logic for here
-            var foo = new UserRegisterDto
-            {
-                Email = "pang.dev@mail.com",
-                Forename = "Pang",
-                Surname = "Dev",
-                Password = "123",
-            };
-            await RegisterUser(foo);
-
         }
     }
 }

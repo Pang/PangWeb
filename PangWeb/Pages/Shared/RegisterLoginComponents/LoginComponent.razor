@@ -16,6 +16,16 @@
 
         <div style="display: flex; justify-content: space-between">
             <button class="btn btn-success d-grid mt-2" type="submit">Submit</button>
+            @if (!fakeUserBtnUsed)
+            {
+                <button id="fakeUserBtn" 
+                    class="btn btn-info mt-2" 
+                    type="button" 
+                    @onclick="RegisterFakeUser" 
+                >
+                    Create Fake User
+                </button> 
+            }
         </div>
     </EditForm>
 </section>
@@ -27,7 +37,7 @@
     [Inject]
     private UserService _userService { get; set; }
     public UserLoginDto UserForm = new ();
-
+    private bool fakeUserBtnUsed { get; set; }
 
     private async void LoginUser()
     {
@@ -35,5 +45,19 @@
         await jsr.InvokeAsync<string>("localStorage.setItem", "token", token).ConfigureAwait(false);
         _userService.HandleToken(token);
         await OnLoggedIn.InvokeAsync();
+    }
+
+    private async void RegisterFakeUser()
+    {
+        UserRegisterDto UserForm = new UserRegisterDto()
+            {
+                Email = "fake@user.com",
+                Password = "abc",
+                Forename = "Fake",
+                Surname = "user",
+            };
+
+        await _userService.RegisterUser(UserForm);
+        fakeUserBtnUsed = true;
     }
 }

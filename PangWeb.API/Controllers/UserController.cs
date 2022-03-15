@@ -48,7 +48,7 @@ namespace PangWeb.API.Controllers
             return new JsonResult(jwtToken);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("allUsers")]
         [ProducesResponseType(401)]
         [ProducesResponseType(200)]
