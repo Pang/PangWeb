@@ -60,7 +60,7 @@ namespace PangWeb.API.Repositories
                 LastLoginDt = createDT,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
-                PrivilageLevel = userRegister.Email == "pang.dev@mail.com" ? (short)1 : (short)0,
+                PrivilageLevel = userRegister.Email == "fake@user.com" ? (short)1 : (short)0,
             };
 
             await _context.Users.AddAsync(user);

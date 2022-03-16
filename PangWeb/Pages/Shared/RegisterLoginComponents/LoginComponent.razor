@@ -39,6 +39,11 @@
     public UserLoginDto UserForm = new ();
     private bool fakeUserBtnUsed { get; set; }
 
+    protected override void OnInitialized()
+    {
+        fakeUserBtnUsed = _userService.GetTokenProperty("email") != null;
+    }
+
     private async void LoginUser()
     {
         var token = await _userService.LoginUser(UserForm);
@@ -54,7 +59,7 @@
                 Email = "fake@user.com",
                 Password = "abc",
                 Forename = "Fake",
-                Surname = "user",
+                Surname = "User",
             };
 
         await _userService.RegisterUser(UserForm);

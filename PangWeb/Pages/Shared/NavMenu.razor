@@ -39,7 +39,7 @@
             {
                 <span>@_userService.GetTokenProperty("email")</span>
             }
-            @if (_userService.UserLoggedIn.privilageLevel == 1)
+            @if (_userService.GetTokenProperty("role") == "1")
             {
                 <!-- Admin -->
                 <li class="nav-item">

@@ -11,6 +11,7 @@ namespace PangWeb.Services
         private readonly HttpClient _httpClient;
         public UserDto UserLoggedIn = new ();
         public JwtSecurityToken UserToken;
+        public string UserTokenString;
         public string userName;
 
         public UserService(HttpClient httpClient)
@@ -22,6 +23,7 @@ namespace PangWeb.Services
         {
             var handler = new JwtSecurityTokenHandler();
             UserToken = handler.ReadJwtToken(token);
+            UserTokenString = token;
             userName = GetTokenProperty("name");
         }
 
@@ -33,9 +35,13 @@ namespace PangWeb.Services
 
         public async Task<List<UserDto>> GetAllUsersAdmin() 
         {
-            var response = await _httpClient.GetAsync("api/User/allUsers");
+            var requestMsg = new HttpRequestMessage(HttpMethod.Get, "api/User/allUsers");
+            requestMsg.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", UserTokenString);
+            var response = await _httpClient.SendAsync(requestMsg);
+
             if (response.IsSuccessStatusCode)
                 return await JsonSerializer.DeserializeAsync<List<UserDto>>(await response.Content.ReadAsStreamAsync());
+
             return null;
         }
 

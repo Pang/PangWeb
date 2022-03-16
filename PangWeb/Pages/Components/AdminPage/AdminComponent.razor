@@ -23,7 +23,7 @@
     protected async override Task OnInitializedAsync()
     {
         base.OnInitialized();
-        var email = _userService.GetTokenProperty("email");
-        if(email == null || email.ToLower() != "pang.dev@mail.com") NavManager.NavigateTo("/", true);
+        var role = _userService.GetTokenProperty("role");
+        if(role == null || role != "1") NavManager.NavigateTo("/", true);
     }
 }

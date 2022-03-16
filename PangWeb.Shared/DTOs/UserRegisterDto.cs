@@ -12,5 +12,6 @@ namespace PangWeb.Shared.DTOs
         public string Password { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
+        public short PrivilageLevel { get; set; }
     }
 }

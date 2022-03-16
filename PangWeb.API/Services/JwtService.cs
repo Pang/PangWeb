@@ -24,10 +24,11 @@ namespace PangWeb.API.Services
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Name, $"{user.Forename} {user.Surname}"),
+                new Claim(ClaimTypes.Role, $"{user.PrivilageLevel}"),
             };
 
             // JWT: Part of Signature
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["AppSettings:Secret"]));
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("ThisIsForDeveloping"));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
