@@ -4,26 +4,24 @@
 @using PangWeb.Pages.Components.AdminPage.UserComponents
 @using PangWeb.Services
 
-<TableBlogComponent></TableBlogComponent>
-
-<br />
-
-<TableProductComponent></TableProductComponent>
-
-<br />
-
-<TableUserComponent></TableUserComponent>
+@if (role == "1")
+{
+    <TableBlogComponent></TableBlogComponent>
+    <br />
+    <TableProductComponent></TableProductComponent>
+    <br />
+    <TableUserComponent></TableUserComponent>
+}
 
 @code{
-    [Inject]
-    private UserService _userService { get; set; }
-    [Inject]
-    private NavigationManager NavManager { get; set; }
+    [Inject] private UserService _userService { get; set; }
+    [Inject] private NavigationManager NavManager { get; set; }
+    private string role { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
         base.OnInitialized();
-        var role = _userService.GetTokenProperty("role");
-        if(role == null || role != "1") NavManager.NavigateTo("/", true);
+        role = _userService.GetTokenProperty("role");
+        if (role == null || role != "1") NavManager.NavigateTo("/", true);
     }
 }
