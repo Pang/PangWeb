@@ -1,1 +1,17 @@
+.navShoppingIcon {
+    fill: black;
+    width: 30px;
+    height: 30px;
+}
+.navShoppingIcon:hover {
+    fill: rgba(0,0,0,0.5);
+    cursor: pointer;
+}
 
+.navLoginText {
+    color: black;
+}
+.navLoginText:hover {
+    fill: rgba(0,0,0,0.5);
+    cursor: pointer;
+}
