@@ -10,7 +10,8 @@
             Name = product.Name;
             Description = product.Description;
             ImgUrl = product.ImgUrl;
-            active = product.active;
+            Active = product.Active;
+            Price = product.Price;
             DateAdded = product.DateAdded;
             ProductType = category;
         }
@@ -20,7 +21,8 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImgUrl { get; set; }
-        public bool active { get; set; }
+        public bool Active { get; set; }
+        public decimal Price { get; set; }
         public DateTimeOffset DateAdded { get; set; }
 
         public ProductCategory ProductType { get; set; }

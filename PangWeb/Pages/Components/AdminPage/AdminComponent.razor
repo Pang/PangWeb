@@ -18,7 +18,7 @@
     [Inject] private NavigationManager NavManager { get; set; }
     private string role { get; set; }
 
-    protected async override Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         base.OnInitialized();
         role = _userService.GetTokenProperty("role");

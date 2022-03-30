@@ -31,5 +31,5 @@
 
     protected override void OnInitialized() {}
 
-    private void RegisterNewUser() => _userService.RegisterUser(UserForm);
+    private async Task RegisterNewUser() => await _userService.RegisterUser(UserForm);
 }

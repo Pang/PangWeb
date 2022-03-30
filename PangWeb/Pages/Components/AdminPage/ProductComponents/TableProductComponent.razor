@@ -20,7 +20,7 @@
                 <td>@item.Name</td>
                 <td class="w-50">@item.Description</td>
                 <td>@item.DateAdded.ToString("dd/MM/yyyy - HH:mm:ss")</td>
-                <td>@(item.active ? "Yes" : "No")</td>
+                <td>@(item.Active ? "Yes" : "No")</td>
                 <td @onclick="() => SetSelectedId(item.Id)" style="color: yellow">&#9998;</td>
             </tr>
         }

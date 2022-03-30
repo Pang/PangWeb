@@ -30,7 +30,7 @@ namespace PangWeb.Services
         public List<Product> GetAllProducts()
         {
             return _products.OrderByDescending(x => x.DateAdded)
-                .Where(x => x.active)
+                .Where(x => x.Active)
                 .Join(
                     productCategories, 
                     p => p.ProductCategoryId, 
@@ -44,7 +44,7 @@ namespace PangWeb.Services
         public List<Product> GetAllProductsByCategory(long categoryId)
         {
             return _products.OrderByDescending(x => x.DateAdded)
-                .Where(x => x.active && (x.ProductCategoryId == categoryId || categoryId == productCategories.First(x => x.Category == "All").Id))
+                .Where(x => x.Active && (x.ProductCategoryId == categoryId || categoryId == productCategories.First(x => x.Category == "All").Id))
                 .Join(
                     productCategories,
                     p => p.ProductCategoryId,
@@ -94,7 +94,7 @@ namespace PangWeb.Services
             if (productForm != null)
             {
                 var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
-                _products[productIndex].active = false;
+                _products[productIndex].Active = false;
             }
         }
 
@@ -105,7 +105,7 @@ namespace PangWeb.Services
             if (productForm != null)
             {
                 var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
-                _products[productIndex].active = true;
+                _products[productIndex].Active = true;
             }
         }
 
@@ -121,7 +121,7 @@ namespace PangWeb.Services
                     Name = "Canvas Art Piece 1",
                     Description = "Such beautiful scenery",
                     ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
-                    active = true,
+                    Active = true,
                     DateAdded = DateTimeOffset.Parse("11/05/2015"),
                 },
                 new Product {
@@ -130,7 +130,7 @@ namespace PangWeb.Services
                     Name = "Customized Mug",
                     Description = "Fill me up!",
                     ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
-                    active = true,
+                    Active = true,
                     DateAdded = DateTimeOffset.Parse("14/03/2017"),
                 },
                 new Product {
@@ -139,7 +139,7 @@ namespace PangWeb.Services
                     Name = "Customized T-shirt",
                     Description = "Stand out with fresh swag!",
                     ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
-                    active = true,
+                    Active = true,
                     DateAdded = DateTimeOffset.Parse("17/01/2021"),
                 },
             };
@@ -147,7 +147,9 @@ namespace PangWeb.Services
 
         public long GetCategoryId(string category)
         {
-            return productCategories.Where(x => x.Category == category).FirstOrDefault().Id;
+            var productCategory = productCategories.Where(x => x.Category == category).First();
+            if (productCategory != null) return productCategory.Id;
+            return 0;
         }
 
         private List<ProductCategory> SeededProductTypesData()

@@ -1,0 +1,40 @@
+﻿@page "/Cart";
+@using PangWeb.Services
+@using PangWeb.Shared.DTOs
+
+<h3>ShopCart</h3>
+
+        @if (shopCart.Items != null && shopCart.Items.Count > 0)
+        {
+            <table>
+                <thead>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                </thead>
+                <tbody>
+                    foreach(var item in shopCart.Items)
+                    {
+                        <tr>
+                            <td>item.Name</td>
+                            <td>item.Quantity</td>
+                        </tr>  
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h3>Nothing in your cart!</h3>
+        }
+
+@code {
+    [Inject]
+    private ShoppingCartService _shoppingCartService { get; set; }
+
+    public ShoppingCartDto shopCart;
+
+    protected override void OnInitialized()
+    {
+        shopCart = _shoppingCartService._shoppingCart;
+    }
+}

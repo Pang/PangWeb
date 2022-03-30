@@ -19,7 +19,7 @@ namespace PangWeb.Services
             _httpClient = httpClient;
         }
 
-        public async void HandleToken(string token)
+        public void HandleToken(string token)
         {
             var handler = new JwtSecurityTokenHandler();
             UserToken = handler.ReadJwtToken(token);

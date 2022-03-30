@@ -40,7 +40,7 @@
     private void GetListOfProductsForPage()
     {
         var categoryId = _productService.GetCategoryId(category);
-        if (categoryId != null) products = _productService.GetAllProductsByCategory(categoryId);
+        if (categoryId > 0) products = _productService.GetAllProductsByCategory(categoryId);
     }
 
 }

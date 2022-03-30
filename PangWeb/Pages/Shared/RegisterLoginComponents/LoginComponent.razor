@@ -64,5 +64,16 @@
 
         await _userService.RegisterUser(UserForm);
         fakeUserBtnUsed = true;
+
+        UserLoginDto userLogin = new UserLoginDto()
+            {
+                Email = "fake@user.com",
+                Password = "abc"
+            };
+
+        var token = await _userService.LoginUser(userLogin);
+        await jsr.InvokeAsync<string>("localStorage.setItem", "token", token).ConfigureAwait(false);
+        _userService.HandleToken(token);
+        await OnLoggedIn.InvokeAsync();
     }
 }
