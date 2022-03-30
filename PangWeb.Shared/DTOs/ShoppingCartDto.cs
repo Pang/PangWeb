@@ -9,7 +9,7 @@ namespace PangWeb.Shared.DTOs
     public class ShoppingCartDto
     {
         public List<ShoppingCartItemDto> Items { get; set; }
-        public int TotalPrice { get; set; }
+        public decimal TotalPrice { get; set; }
         public int NoOfItems { get; set; }
     }
 }

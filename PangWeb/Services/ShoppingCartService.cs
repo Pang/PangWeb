@@ -9,7 +9,7 @@ namespace PangWeb.Services
 
         public ShoppingCartService()
         {
-            //_shoppingCart = SeededData();
+            _shoppingCart = SeededData();
         }
 
         public void AddNewProductToCart(Product product)
@@ -23,6 +23,39 @@ namespace PangWeb.Services
                 Product = product
             };
             _shoppingCart.Items.Add(newItem);
+        }
+
+        private ShoppingCartDto SeededData()
+        {
+            var items = new List<ShoppingCartItemDto>();
+            items.Add(new ShoppingCartItemDto()
+            {
+                Quantity = 2,
+                Price = 20.00m,
+                ProductId = 100,
+                Product = new Product
+                {
+                    Id = 1,
+                    ProductCategoryId = 1,
+                    Name = "Canvas Art Piece 1",
+                    Description = "Such beautiful scenery",
+                    ImgUrl = "https://picsum.photos/400",
+                    Active = true,
+                    DateAdded = DateTimeOffset.Parse("11/05/2015"),
+                },
+            });
+            ShoppingCartDto shopCart = new ShoppingCartDto() { Items = items, NoOfItems = items.Count, TotalPrice = CalculateTotalPrice(items) };
+            return shopCart;
+        }
+
+        private decimal CalculateTotalPrice(List<ShoppingCartItemDto> items)
+        {
+            var price = 0m;
+            foreach (var item in items)
+            {
+                price += item.Price;
+            }
+            return price;
         }
     }
 }
