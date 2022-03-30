@@ -75,5 +75,7 @@
         await jsr.InvokeAsync<string>("localStorage.setItem", "token", token).ConfigureAwait(false);
         _userService.HandleToken(token);
         await OnLoggedIn.InvokeAsync();
+
+        StateHasChanged();
     }
 }

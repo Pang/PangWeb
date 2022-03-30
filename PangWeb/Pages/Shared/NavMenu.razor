@@ -24,15 +24,15 @@
                 {
                     <li><a class="dropdown-item" href="/Store/@category.Category">@category.Category</a></li>
                 }
-                @if (_userService.GetTokenProperty("role") == "1")
-                {
-                    <!-- Admin -->
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
-                    </li>
-                }
               </ul>
             </li>
+            @if (_userService.GetTokenProperty("role") == "1")
+            {
+                <!-- Admin -->
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/Admin">Admin</a>
+                </li>
+            }
         </section>
         <section class="d-flex" style="align-items: center;">
             @if (_userService.GetTokenProperty("name") == null)

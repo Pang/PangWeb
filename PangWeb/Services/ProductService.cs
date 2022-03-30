@@ -118,6 +118,7 @@ namespace PangWeb.Services
                 {
                     Id = 1,
                     ProductCategoryId = 1,
+                    Price = 20.00m,
                     Name = "Canvas Art Piece 1",
                     Description = "Such beautiful scenery",
                     ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
@@ -127,6 +128,7 @@ namespace PangWeb.Services
                 new Product {
                     Id = 2,
                     ProductCategoryId = 3,
+                    Price = 10.00m,
                     Name = "Customized Mug",
                     Description = "Fill me up!",
                     ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
@@ -136,6 +138,7 @@ namespace PangWeb.Services
                 new Product {
                     Id = 3,
                     ProductCategoryId = 2,
+                    Price = 15.00m,
                     Name = "Customized T-shirt",
                     Description = "Stand out with fresh swag!",
                     ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",

@@ -2,30 +2,35 @@
 @using PangWeb.Services
 @using PangWeb.Shared.DTOs
 
-<h3>ShopCart</h3>
-@if (shopCart.Items != null && shopCart.Items.Count > 0)
-{
-    <table>
-        <thead>
-            <th>Item</th>
-            <th>Quantity</th>
-        </thead>
-        <tbody>
-            @foreach(var item in shopCart.Items)
-            {
-                <tr>
-                    <td>@item.Product.Name</td>
-                    <td>@item.Quantity</td>
-                </tr>  
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <h3>Nothing in your cart!</h3>
-}
-
+<div class="container">
+    <h3 class="mb-5">Shopping Cart</h3>
+    @if (shopCart.Items != null && shopCart.Items.Count > 0)
+    {
+        <table style="width: 600px" class="mx-auto">
+            <thead>
+                <th style="width: 200px"></th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </thead>
+            <tbody>
+                @foreach(var item in shopCart.Items)
+                {
+                    <tr>
+                        <td><img style="height: 150px" src="@item.Product.ImgUrl" /></td>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>£@(item.Price * item.Quantity)</td>
+                    </tr>  
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <h3>Nothing in your cart!</h3>
+    }
+    </div>
 @code {
     [Inject]
     private ShoppingCartService _shoppingCartService { get; set; }

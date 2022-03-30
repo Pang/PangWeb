@@ -14,15 +14,37 @@ namespace PangWeb.Services
 
         public void AddNewProductToCart(Product product)
         {
-            var newItem = new ShoppingCartItemDto()
+            if (_shoppingCart.Items.Any(x => x.Product.Id == product.Id))
             {
-                Name = product.Name,
-                Quantity = 1,
-                Price = product.Price,
-                ProductId = product.Id,
-                Product = product
-            };
-            _shoppingCart.Items.Add(newItem);
+                _shoppingCart.Items.FirstOrDefault(x => x.Product.Id == product.Id).Quantity++;
+            }
+            else
+            {
+                var newItem = new ShoppingCartItemDto()
+                {
+                    Name = product.Name,
+                    Quantity = 1,
+                    Price = product.Price,
+                    ProductId = product.Id,
+                    Product = product
+                };
+                _shoppingCart.Items.Add(newItem);
+            }
+        }
+
+        public void RemoveProductToCart(Product product)
+        {
+            // if quantity>1 
+            if (_shoppingCart.Items.FirstOrDefault(x => x.Product.Id == product.Id).Quantity > 1)
+            {
+                _shoppingCart.Items.FirstOrDefault(x => x.Product.Id == product.Id).Quantity--;
+            }
+            else
+            {
+                var item = _shoppingCart.Items.Where(x => x.Product.Id == product.Id).FirstOrDefault();
+                _shoppingCart.Items.Remove(item);
+            }
+
         }
 
         private ShoppingCartDto SeededData()
@@ -32,7 +54,7 @@ namespace PangWeb.Services
             {
                 Quantity = 2,
                 Price = 20.00m,
-                ProductId = 100,
+                ProductId = 1,
                 Product = new Product
                 {
                     Id = 1,
