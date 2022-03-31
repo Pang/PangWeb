@@ -15,13 +15,13 @@
             {
                 if (!_shoppingCartService._shoppingCart.Items.Any(x => x.Product.Id == product.Id))
                 {
-                        <button class="btn btn-success" @onclick="() => _shoppingCartService.AddNewProductToCart(product)"><b>+</b></button>
+                        <button class="btn btn-success addToCartBtn" @onclick="() => _shoppingCartService.AddNewProductToCart(product)"><b>+</b></button>
                 }
                 else
                 {
-                        <button class="btn btn-danger" @onclick="() => _shoppingCartService.RemoveProductToCart(product)"><b>&lt;</b></button>
+                        <button class="btn btn-danger productQuantityBtn" @onclick="() => _shoppingCartService.RemoveProductToCart(product)"><b>&lt;</b></button>
                         <span>@_shoppingCartService._shoppingCart.Items.FirstOrDefault(x => x.Product.Id == product.Id).Quantity</span>
-                        <button class="btn btn-success" @onclick="() => _shoppingCartService.AddNewProductToCart(product)"><b>&gt;</b></button>
+                        <button class="btn btn-success productQuantityBtn" @onclick="() => _shoppingCartService.AddNewProductToCart(product)"><b>&gt;</b></button>
                 }
             }
           </div>

@@ -19,7 +19,11 @@
                     <tr>
                         <td><img style="height: 150px" src="@item.Product.ImgUrl" /></td>
                         <td>@item.Product.Name</td>
-                        <td>@item.Quantity</td>
+                        <td>
+                            <button class="btn btn-danger productQuantityBtn" @onclick="() => _shoppingCartService.RemoveProductToCart(item.Product)"><b>&lt;</b></button>
+                            <span>@_shoppingCartService._shoppingCart.Items.FirstOrDefault(x => x.Product.Id == item.ProductId).Quantity</span>
+                            <button class="btn btn-success productQuantityBtn" @onclick="() => _shoppingCartService.AddNewProductToCart(item.Product)"><b>&gt;</b></button>
+                        </td>
                         <td>£@(item.Price * item.Quantity)</td>
                     </tr>  
                 }

@@ -69,3 +69,23 @@ a, .btn-link {
 .navbar {
     background-color: darkseagreen;
 }
+
+.productQuantityBtn {
+    padding: 5px;
+    height: 5px;
+    font-size: 13px;
+}
+
+.productQuantityBtn > b {
+    position: relative;
+    top: -10px;
+}
+
+.addToCartBtn {
+    padding: 5px;
+    height: 20px;
+}
+.addToCartBtn > b {
+    position: relative;
+    top: -7px;
+}
