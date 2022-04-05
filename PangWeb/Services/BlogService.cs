@@ -6,7 +6,7 @@ namespace PangWeb.Services
     public class BlogService
     {
         private readonly HttpClient _httpClient;
-        private List<Blog> blogs;
+        public List<Blog> blogs;
         private int idTracker;
 
         public BlogService(HttpClient httpClient)

@@ -10,5 +10,12 @@ namespace PangWeb.Pages
         [Inject]
         private BlogService _blogService { get; set; }
         public string Title = "PangWeb";
+
+
+        protected async override void OnInitialized()
+        {
+            _blogService.blogs = await _blogService.GetAllBlogs();
+            StateHasChanged();
+        }
     }
 }
