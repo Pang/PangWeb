@@ -9,7 +9,6 @@ namespace PangWeb.Pages
     {
         [Inject]
         private BlogService _blogService { get; set; }
-
-        protected override void OnInitialized() {}
+        public string Title = "PangWeb";
     }
 }

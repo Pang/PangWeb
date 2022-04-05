@@ -1,16 +1,17 @@
 ﻿using PangWeb.Shared;
+using System.Text.Json;
 
 namespace PangWeb.Services
 {
     public class BlogService
     {
+        private readonly HttpClient _httpClient;
         private List<Blog> blogs;
         private int idTracker;
 
-        public BlogService()
+        public BlogService(HttpClient httpClient)
         {
-            blogs = SeededData();
-            idTracker = GetAllBlogs().Count();
+            _httpClient = httpClient;
         }
 
         /* Get a blog by its ID */
@@ -20,9 +21,14 @@ namespace PangWeb.Services
         }
 
         /* Get List of all blogs */
-        public List<Blog> GetAllBlogs()
+        public async Task<List<Blog>> GetAllBlogs()
         {
             return blogs.OrderByDescending(x => x.Date).Where(x => x.active).ToList();
+            var requestMsg = new HttpRequestMessage(HttpMethod.Get, "api/Blogs/FrontPage");
+            var response = await _httpClient.SendAsync(requestMsg);
+
+            if (response.IsSuccessStatusCode)
+                return await JsonSerializer.DeserializeAsync<List<Blog>>(await response.Content.ReadAsStreamAsync());
         }
 
         /* Get List of all blogs */

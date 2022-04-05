@@ -22,6 +22,7 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
 // Services
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddTransient<DataSeedService>();
 
 // Cors
 builder.Services.AddCors(options =>
