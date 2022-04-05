@@ -23,12 +23,12 @@ namespace PangWeb.Services
         /* Get List of all blogs */
         public async Task<List<Blog>> GetAllBlogs()
         {
-            return blogs.OrderByDescending(x => x.Date).Where(x => x.active).ToList();
-            var requestMsg = new HttpRequestMessage(HttpMethod.Get, "api/Blogs/FrontPage");
+            var requestMsg = new HttpRequestMessage(HttpMethod.Get, "api/Blog/GetAll");
             var response = await _httpClient.SendAsync(requestMsg);
 
             if (response.IsSuccessStatusCode)
                 return await JsonSerializer.DeserializeAsync<List<Blog>>(await response.Content.ReadAsStreamAsync());
+            return new List<Blog>();
         }
 
         /* Get List of all blogs */

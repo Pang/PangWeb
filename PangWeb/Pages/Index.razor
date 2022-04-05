@@ -8,8 +8,15 @@
     <div class="jumbotron">
         <h1>@Title</h1>
     </div>
-    @foreach (var item in _blogService.GetAllBlogs())
+    @if (_blogService.blogs == null)
     {
-        <NewsCardComponent blogInfo="item"></NewsCardComponent>
+        <h2>Nothing to see here</h2>
+    }
+    else
+    {
+        @foreach (var item in _blogService.blogs)
+        {
+            <NewsCardComponent blogInfo="item"></NewsCardComponent>
+        }
     }
 </div>

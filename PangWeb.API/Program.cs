@@ -11,16 +11,17 @@ using PangWeb.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 var config = new ConfigurationManager();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNamingPolicy = null;
+});
 
 // Database
 builder.Services.AddDbContext<DataContext>(opt =>
     opt.UseInMemoryDatabase("DataApp"));
 
-// Repositories
+// Repositories & Services
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-
-// Services
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddTransient<DataSeedService>();
 
