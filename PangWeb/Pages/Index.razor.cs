@@ -14,7 +14,6 @@ namespace PangWeb.Pages
         protected async override void OnInitialized()
         {
             _blogService.blogs = await _blogService.GetAllBlogs();
-            _productService.productCategories = await _productService.GetProductCategories();
             _productService.products = await _productService.GetAllProducts();
             StateHasChanged();
         }

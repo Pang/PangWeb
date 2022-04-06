@@ -24,7 +24,6 @@ public class ProductService
     /* Get product categories */
     public async Task<List<ProductCategory>> GetProductCategories()
     {
-        return new List<ProductCategory>();
         var requestMsg = new HttpRequestMessage(HttpMethod.Get, "api/Product/GetProductCategories");
         var response = await _httpClient.SendAsync(requestMsg);
 
@@ -36,7 +35,6 @@ public class ProductService
     /* Get List of all _products */
     public async Task<List<Product>> GetAllProducts()
     {
-        return new List<Product>();
         var requestMsg = new HttpRequestMessage(HttpMethod.Get, "api/Product/GetProducts");
         var response = await _httpClient.SendAsync(requestMsg);
 

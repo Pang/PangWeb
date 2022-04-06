@@ -89,20 +89,3 @@
         </div>
     </dialog>
 }
-
-
-@code {
-    [Inject]
-    private ProductService _productService { get; set; }
-    [Inject]
-    private UserService _userService { get; set; }
-
-
-    private bool loginDialogOpen; 
-
-    private void CloseRegisterDialog()
-    {
-        loginDialogOpen = false;
-        //StateHasChanged();
-    }
-}
