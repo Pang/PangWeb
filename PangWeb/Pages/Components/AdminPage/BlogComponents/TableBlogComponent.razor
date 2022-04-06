@@ -13,17 +13,20 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in _blogService.GetAllBlogsAdmin())
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Title</td>
-                <td class="w-50">@item.Summary</td>
-                <td>@item.Date.ToString("dd/MM/yyyy - HH:mm:ss")</td>
-                <td>@(item.active ? "Yes" : "No")</td>
-                <td @onclick="() => SetSelectedId(item.Id)" style="color: yellow">&#9998;</td>
-            </tr>
-        }
+            @if (AllBlogs != null && AllBlogs.Count > 0)
+            {
+                @foreach (var item in AllBlogs)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Title</td>
+                        <td class="w-50">@item.Summary</td>
+                        <td>@item.Date.ToString("dd/MM/yyyy - HH:mm:ss")</td>
+                        <td>@(item.Active ? "Yes" : "No")</td>
+                        <td @onclick="() => SetSelectedId(item.Id)" style="color: yellow">&#9998;</td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </section>

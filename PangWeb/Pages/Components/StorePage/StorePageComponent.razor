@@ -4,7 +4,7 @@
 <div class="container">
     <h3>@category</h3>
 
-    @foreach (var product in products)
+    @foreach (var product in _productService.products)
     {
         <div class="card d-inline-block m-2" style="width: 14rem;">
           <img src="@product.ImgUrl" class="card-img-top" alt="...">
@@ -28,35 +28,3 @@
         </div>
     }
 </div>
-
-@code {
-    [Parameter]
-    public string? category { 
-        get 
-        {
-            return _category;
-        }
-        set
-        {
-            if (value != null) _category = value;
-            GetListOfProductsForPage();
-        }
-    }
-    private string? _category;
-
-    [Inject]
-    private ProductService _productService { get; set; }
-    [Inject]
-    private UserService _userService { get; set; }
-    [Inject]
-    private ShoppingCartService _shoppingCartService { get; set; }
-
-    public List<Product> products { get; set; } = new List<Product>();
-
-    private void GetListOfProductsForPage()
-    {
-        var categoryId = _productService.GetCategoryId(category);
-        if (categoryId > 0) products = _productService.GetAllProductsByCategory(categoryId);
-        else products = _productService.GetAllProducts();
-    }
-}

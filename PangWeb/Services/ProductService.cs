@@ -1,185 +1,126 @@
 ﻿using PangWeb.Shared;
+using System.Text.Json;
 
-namespace PangWeb.Services
+namespace PangWeb.Services;
+
+public class ProductService
 {
-    public class ProductService
+    private readonly HttpClient _httpClient;
+    public List<Product> products;
+    public List<ProductCategory> productCategories;
+
+    public ProductService(HttpClient httpClient)
     {
-        private List<Product> _products;
-        private List<ProductCategory> productCategories;
-        private int idTracker;
+        _httpClient = httpClient;
+    }
 
-        public ProductService()
-        {
-            _products = SeededData();
-            productCategories = SeededProductTypesData();
-            idTracker = GetAllProducts().Count();
-        }
+    /* Get a product by its ID */
+    public Product GetProductById(long id)
+    {
+        // TODO
+        return new Product();
+    }
 
-        public List<ProductCategory> getAllCategories()
-        {
-            return productCategories;
-        }
+    /* Get product categories */
+    public async Task<List<ProductCategory>> GetProductCategories()
+    {
+        return new List<ProductCategory>();
+        var requestMsg = new HttpRequestMessage(HttpMethod.Get, "api/Product/GetProductCategories");
+        var response = await _httpClient.SendAsync(requestMsg);
 
-        /* Get a product by its ID */
-        public Product GetProductById(long id)
-        {
-            return _products.Where(x => x.Id == id).FirstOrDefault();
-        }
+        if (response.IsSuccessStatusCode)
+            return await JsonSerializer.DeserializeAsync<List<ProductCategory>>(await response.Content.ReadAsStreamAsync());
+        return new List<ProductCategory>();
+    }
 
-        /* Get List of all _products */
-        public List<Product> GetAllProducts()
-        {
-            return _products.OrderByDescending(x => x.DateAdded)
-                .Where(x => x.Active)
-                .Join(
-                    productCategories, 
-                    p => p.ProductCategoryId, 
-                    pc => pc.Id,
-                    (product, category) => new Product(product, category)
-                 )
-                .ToList();
-        }
+    /* Get List of all _products */
+    public async Task<List<Product>> GetAllProducts()
+    {
+        return new List<Product>();
+        var requestMsg = new HttpRequestMessage(HttpMethod.Get, "api/Product/GetProducts");
+        var response = await _httpClient.SendAsync(requestMsg);
 
-        /* Get List of all products by category */
-        public List<Product> GetAllProductsByCategory(long categoryId)
-        {
-            return _products.OrderByDescending(x => x.DateAdded)
-                .Where(x => x.Active && (x.ProductCategoryId == categoryId || categoryId == productCategories.First(x => x.Category == "All").Id))
-                .Join(
-                    productCategories,
-                    p => p.ProductCategoryId,
-                    pc => pc.Id,
-                    (product, category) => new Product(product, category)
-                 )
-                .ToList();
-        }
+        if (response.IsSuccessStatusCode)
+            return await JsonSerializer.DeserializeAsync<List<Product>>(await response.Content.ReadAsStreamAsync());
+        return new List<Product>();
+    }
 
-        /* Get List of all products */
-        public List<Product> GetAllProductsAdmin()
-        {
-            // todo: check admin
-            return _products.OrderByDescending(x => x.DateAdded).ToList();
-        }
+    /* Get List of all products by category */
+    public List<Product> GetAllProductsByCategory(long categoryId)
+    {
+        // TODO
+        //return _products.OrderByDescending(x => x.DateAdded)
+        //    .Where(x => x.Active && (x.ProductCategoryId == categoryId || categoryId == productCategories.First(x => x.Category == "All").Id))
+        //    .Join(
+        //        productCategories,
+        //        p => p.ProductCategoryId,
+        //        pc => pc.Id,
+        //        (product, category) => new Product(product, category)
+        //        )
+        //    .ToList();
+        return new List<Product>();
+    }
 
-        /* Add a new products to the list */
-        public bool AddNewProduct(Product productForm)
-        {
-            if (productForm.Name != null && productForm.Description != null)
-            {
-                productForm.DateAdded = DateTimeOffset.Now;
-                productForm.Id = ++idTracker;
-                _products.Add(productForm);
-                return true;
-            }
-            return false;
-        }
+    /* Get List of all products */
+    public List<Product> GetAllProductsAdmin()
+    {
+        // TODO
+        return new List<Product>();
+    }
 
-        /* Save editted product from list */
-        public bool SaveEdittedProduct(Product productForm)
-        {
-            // todo: check admin
-            if (productForm != null)
-            {
-                var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
-                _products[productIndex] = productForm;
-                return true;
-            }
-            return false;
-        }
+    /* Add a new products to the list */
+    public bool AddNewProduct(Product productForm)
+    {
+        // TODO
+        //if (productForm.Name != null && productForm.Description != null)
+        //{
+        //    productForm.DateAdded = DateTimeOffset.Now;
+        //    productForm.Id = ++idTracker;
+        //    _products.Add(productForm);
+        //    return true;
+        //}
+        return false;
+    }
 
-        /* Disable _products from list */
-        public void DeleteProduct(Product productForm)
-        {
-            // todo: check admin
-            if (productForm != null)
-            {
-                var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
-                _products[productIndex].Active = false;
-            }
-        }
+    /* Save editted product from list */
+    public bool SaveEdittedProduct(Product productForm)
+    {
+        // TODO
+        //if (productForm != null)
+        //{
+        //    var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
+        //    _products[productIndex] = productForm;
+        //    return true;
+        //}
+        return false;
+    }
 
-        /* Reactivate _products from list */
-        public void ReactivateProduct(Product productForm)
-        {
-            // todo: check admin
-            if (productForm != null)
-            {
-                var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
-                _products[productIndex].Active = true;
-            }
-        }
+    /* Disable _products from list */
+    public void DeleteProduct(Product productForm)
+    {
+        // TODO
+        //if (productForm != null)
+        //{
+        //    var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
+        //    _products[productIndex].Active = false;
+        //}
+    }
 
-        private List<Product> SeededData()
-        {
-            Random rand = new Random();
-            return new List<Product>()
-            {
-                new Product
-                {
-                    Id = 1,
-                    ProductCategoryId = 1,
-                    Price = 20.00m,
-                    Name = "Canvas Art Piece 1",
-                    Description = "Such beautiful scenery",
-                    ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
-                    Active = true,
-                    DateAdded = DateTimeOffset.Parse("11/05/2015"),
-                },
-                new Product {
-                    Id = 2,
-                    ProductCategoryId = 3,
-                    Price = 10.00m,
-                    Name = "Customized Mug",
-                    Description = "Fill me up!",
-                    ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
-                    Active = true,
-                    DateAdded = DateTimeOffset.Parse("14/03/2017"),
-                },
-                new Product {
-                    Id = 3,
-                    ProductCategoryId = 2,
-                    Price = 15.00m,
-                    Name = "Customized T-shirt",
-                    Description = "Stand out with fresh swag!",
-                    ImgUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + rand.Next(1,898) + ".png",
-                    Active = true,
-                    DateAdded = DateTimeOffset.Parse("17/01/2021"),
-                },
-            };
-        }
-
-        public long GetCategoryId(string category)
-        {
-            var productCategory = productCategories.Where(x => x.Category == category).First();
-            if (productCategory != null) return productCategory.Id;
-            return 0;
-        }
-
-        private List<ProductCategory> SeededProductTypesData()
-        {
-            return new List<ProductCategory>()
-            {
-                new ProductCategory
-                {
-                    Id = 0,
-                    Category = "All",
-                },
-                new ProductCategory
-                {
-                    Id = 1,
-                    Category = "Art",
-                },
-                new ProductCategory
-                {
-                    Id = 2,
-                    Category = "Clothes",
-                },
-                new ProductCategory
-                {
-                    Id = 3,
-                    Category = "Merch",
-                },
-            };
-        }
+    /* Reactivate _products from list */
+    public void ReactivateProduct(Product productForm)
+    {
+        // TODO
+        //if (productForm != null)
+        //{
+        //    var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
+        //    _products[productIndex].Active = true;
+        //}
+    }
+    public long GetCategoryId(string category)
+    {
+        // TODO
+        //var productCategory = productCategories.Where(x => x.Category == category).First();
+        //if (productCategory != null) return productCategory.Id;
+        return 0;
     }
 }

@@ -28,9 +28,11 @@
         public ProductCategory ProductType { get; set; }
     }
 
-    public class ProductCategory
-    {
-        public long Id { get; set; }
-        public string Category { get; set; }
-    }
+    //public enum ProductCategories
+    //{
+    //    All,
+    //    Art,
+    //    Clothes,
+    //    Merch
+    //}
 }

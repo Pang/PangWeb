@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using PangWeb.Services;
+using PangWeb.Shared;
 
 namespace PangWeb.Pages.Components.AdminPage.BlogComponents
 {
@@ -7,16 +8,20 @@ namespace PangWeb.Pages.Components.AdminPage.BlogComponents
     {
         [Inject]
         private BlogService _blogService { get; set; }
-
-        // Create Blog dialog
+        private List<Blog> AllBlogs { get; set; }
         private bool createPostDialogOpen { get; set; }
+        private long SelectedId { get; set; } = 0;
+
+        protected async override void OnInitialized()
+        {
+            AllBlogs = await _blogService.GetAllBlogs();
+            StateHasChanged();
+        }
+
         private void CloseCreateBlogDialog()
         {
             createPostDialogOpen = false;
         }
-
-        // Edit Blog dialog
-        private long SelectedId { get; set; } = 0;
 
         private void SetSelectedId(long selectedRowId = 0)
         {

@@ -14,5 +14,6 @@ namespace PangWeb.API.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderBasket> OrderBaskets { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
     }
 }

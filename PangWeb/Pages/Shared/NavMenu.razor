@@ -20,10 +20,13 @@
                 Store
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                @foreach (var category in _productService.getAllCategories())
-                {
-                    <li><a class="dropdown-item" href="/Store/@category.Category">@category.Category</a></li>
-                }
+                    @if (_productService.productCategories != null)
+                    {
+                        @foreach (var category in _productService.productCategories)
+                        {
+                            <li><a class="dropdown-item" href="/Store/@category.Category">@category.Category</a></li>
+                        }
+                    }
               </ul>
             </li>
             @if (_userService.GetTokenProperty("role") == "1")
