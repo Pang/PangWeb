@@ -104,7 +104,7 @@ namespace PangWeb.API.Services
                 new Product
                 {
                     Id = 1,
-                    ProductCategoryId = 1,
+                    ProductCategoryId = 2,
                     Price = 20.00m,
                     Name = "Canvas Art Piece 1",
                     Description = "Such beautiful scenery",
@@ -114,7 +114,7 @@ namespace PangWeb.API.Services
                 },
                 new Product {
                     Id = 2,
-                    ProductCategoryId = 3,
+                    ProductCategoryId = 4,
                     Price = 10.00m,
                     Name = "Customized Mug",
                     Description = "Fill me up!",
@@ -124,7 +124,7 @@ namespace PangWeb.API.Services
                 },
                 new Product {
                     Id = 3,
-                    ProductCategoryId = 2,
+                    ProductCategoryId = 3,
                     Price = 15.00m,
                     Name = "Customized T-shirt",
                     Description = "Stand out with fresh swag!",

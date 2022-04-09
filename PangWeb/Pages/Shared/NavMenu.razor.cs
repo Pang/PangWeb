@@ -18,7 +18,6 @@ namespace PangWeb.Pages.Shared
         protected async override void OnInitialized()
         {
             _productService.productCategories = await _productService.GetProductCategories();
-            Console.WriteLine(_productService.productCategories.Count);
             StateHasChanged();
         }
     }

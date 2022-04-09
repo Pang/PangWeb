@@ -44,20 +44,30 @@ public class ProductService
     }
 
     /* Get List of all products by category */
-    public List<Product> GetAllProductsByCategory(long categoryId)
+    public async Task<List<Product>> GetAllProductsByCategory(long categoryId)
     {
-        // TODO
-        //return _products.OrderByDescending(x => x.DateAdded)
-        //    .Where(x => x.Active && (x.ProductCategoryId == categoryId || categoryId == productCategories.First(x => x.Category == "All").Id))
-        //    .Join(
-        //        productCategories,
-        //        p => p.ProductCategoryId,
-        //        pc => pc.Id,
-        //        (product, category) => new Product(product, category)
-        //        )
-        //    .ToList();
+        var requestMsg = new HttpRequestMessage(HttpMethod.Get, $"api/Product/GetProductsByCategory/{categoryId}");
+        var response = await _httpClient.SendAsync(requestMsg);
+
+        if (response.IsSuccessStatusCode)
+            return await JsonSerializer.DeserializeAsync<List<Product>>(await response.Content.ReadAsStreamAsync());
         return new List<Product>();
     }
+
+    public long GetCategoryId(string category)
+    {
+        var productCategory = productCategories
+            .Where(x => x.Category.ToLower() == category.ToLower())
+            .First();
+        if (productCategory != null) return productCategory.Id;
+        return 1;
+    }
+
+
+    ///////////////////
+    // Admin section //
+    ///////////////////
+
 
     /* Get List of all products */
     public List<Product> GetAllProductsAdmin()
@@ -113,12 +123,5 @@ public class ProductService
         //    var productIndex = _products.FindIndex(x => x.Id == productForm.Id);
         //    _products[productIndex].Active = true;
         //}
-    }
-    public long GetCategoryId(string category)
-    {
-        // TODO
-        //var productCategory = productCategories.Where(x => x.Category == category).First();
-        //if (productCategory != null) return productCategory.Id;
-        return 0;
     }
 }

@@ -32,6 +32,18 @@ namespace PangWeb.API.Controllers
         public async Task<IActionResult> GetProductCategories()
         {
             var products = await _dataContext.ProductCategories.ToListAsync();
+
+            return Ok(products);
+        }
+
+        [HttpGet("GetProductsByCategory/{categoryId}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductCategory))]
+        public async Task<IActionResult> GetProductCategories(int categoryId)
+        {
+            var products = await _dataContext.ProductCategories
+                .Where(x => x.Id == categoryId)
+                .ToListAsync();
+
             return Ok(products);
         }
     }

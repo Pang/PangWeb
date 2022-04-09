@@ -28,6 +28,7 @@ namespace PangWeb.Pages.Components.StorePage
         [Inject]
         private ShoppingCartService _shoppingCartService { get; set; }
 
+        private List<Product> _productsToShow { get; set; } = new List<Product>();
 
         protected async override void OnInitialized()
         {
@@ -38,8 +39,13 @@ namespace PangWeb.Pages.Components.StorePage
         private async void GetListOfProductsForPage()
         {
             var categoryId = _productService.GetCategoryId(category);
-            if (categoryId > 0) _productService.products = _productService.GetAllProductsByCategory(categoryId);
-            else _productService.products = await _productService.GetAllProducts();
+
+            if (categoryId == 1)
+                _productsToShow = _productService.products;
+            else
+                _productsToShow = _productService.products.Where(x => x.ProductCategoryId == categoryId).ToList();
+
+            StateHasChanged();
         }
     }
 }

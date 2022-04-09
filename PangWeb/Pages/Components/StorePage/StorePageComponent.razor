@@ -4,7 +4,7 @@
 <div class="container">
     <h3>@category</h3>
 
-    @foreach (var product in _productService.products)
+    @foreach (var product in _productsToShow)
     {
         <div class="card d-inline-block m-2" style="width: 14rem;">
           <img src="@product.ImgUrl" class="card-img-top" alt="...">
