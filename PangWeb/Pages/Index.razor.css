@@ -1,0 +1,9 @@
+﻿body {
+}
+#siteHeaderText {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 0 0 3px black;
+}
